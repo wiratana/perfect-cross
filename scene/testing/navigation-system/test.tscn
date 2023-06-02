@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://bup7pkfb2e643"]
+
+[ext_resource type="PackedScene" uid="uid://grpf11jg6eb7" path="res://scene/testing/navigation-system/movement_object/movement_object.tscn" id="1_i1tb3"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_o62yx"]
+vertices = PackedVector2Array(14, 10, 325, 10, 325, 83, 88, 84, 13, 250, 88, 200, 236, 253, 183, 200, 236, 105, 183, 151, 113, 105, 113, 151)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 0, 3, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(10, 8, 9, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(14, 10, 325, 10, 325, 83, 88, 84, 88, 200, 183, 200, 183, 151, 113, 151, 113, 105, 236, 105, 236, 253, 13, 250)])
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_uueb5"]
+vertices = PackedVector2Array(525, 34, 525, 98, 100, 98, 47, 33, 47, 232, 100, 185, 217, 232, 165, 185, 218, 130, 165, 176, 112, 130, 112, 176)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(8, 6, 7, 9), PackedInt32Array(10, 8, 9, 11)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(525, 34, 47, 33, 47, 232, 217, 232, 218, 130, 112, 130, 112, 176, 165, 176, 165, 185, 100, 185, 100, 98, 525, 98)])
+
+[node name="test" type="Node2D"]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_o62yx")
+
+[node name="NavigationRegion2D2" type="NavigationRegion2D" parent="."]
+modulate = Color(0.243137, 0.156863, 1, 1)
+navigation_polygon = SubResource("NavigationPolygon_uueb5")
+navigation_layers = 2
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(491, 65)
+
+[node name="movement_object" parent="." node_paths=PackedStringArray("target") instance=ExtResource("1_i1tb3")]
+position = Vector2(124, 136)
+target = NodePath("../Marker2D")

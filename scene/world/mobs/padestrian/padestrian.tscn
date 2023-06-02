@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5qvws6amnajl"]
+
+[ext_resource type="Script" path="res://scene/world/mobs/padestrian/padestrian.gd" id="1_5jfjw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2fya8"]
+size = Vector2(32, 20)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w3v5u"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g3tkn"]
+size = Vector2(31, 20)
+
+[node name="padestrian" type="CharacterBody2D" groups=["padestrian"]]
+position = Vector2(26, 10)
+script = ExtResource("1_5jfjw")
+
+[node name="Panel" type="ColorRect" parent="."]
+modulate = Color(0.0392157, 0.168627, 1, 1)
+self_modulate = Color(0.0392157, 0.168627, 1, 1)
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.2, 0.8, 0.2, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 22)
+shape = SubResource("RectangleShape2D_2fya8")
+
+[node name="end_of_vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="end_of_vision"]
+position = Vector2(128, 22)
+shape = SubResource("CircleShape2D_w3v5u")
+
+[node name="entity_detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="entity_detector"]
+position = Vector2(49.5, 22)
+shape = SubResource("RectangleShape2D_g3tkn")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -27.0
+offset_right = 60.0
+offset_bottom = -1.0
+text = "padestrian"
+
+[connection signal="area_entered" from="end_of_vision" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="end_of_vision" to="." method="_on_area_2d_area_exited"]
+[connection signal="body_entered" from="entity_detector" to="." method="_on_entity_detector_body_entered"]
+[connection signal="body_exited" from="entity_detector" to="." method="_on_entity_detector_body_exited"]

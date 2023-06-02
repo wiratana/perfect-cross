@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://n27w1i3lwnd1"]
+
+[ext_resource type="Script" path="res://scene/testing/player-attribute/attribute-tester-obstacle/attribute-tester-obstacle.gd" id="1_y80vk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8b0td"]
+size = Vector2(32, 32)
+
+[node name="attribute-tester-obstacle" type="StaticBody2D" groups=["obstacle"]]
+script = ExtResource("1_y80vk")
+knockback = Vector2(1000, 1000)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.129412, 0.121569, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_8b0td")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 5.0
+offset_right = 75.0
+offset_bottom = 28.0

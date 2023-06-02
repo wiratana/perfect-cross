@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://db31p55fqbxl6"]
+
+[ext_resource type="Script" path="res://scene/testing/encounter-system-angry/test.gd" id="1_on3bg"]
+[ext_resource type="PackedScene" uid="uid://cc161rcmkto75" path="res://scene/world/mobs/angry/angry.tscn" id="2_pv1ax"]
+[ext_resource type="PackedScene" uid="uid://cjbrx20evdha" path="res://scene/player/player.tscn" id="3_m3d74"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_yd0ei"]
+vertices = PackedVector2Array(-116, -83, 1436, -88, 1461, 882, -78, 861)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-116, -83, 1436, -88, 1461, 882, -78, 861)])
+
+[node name="test" type="Node2D"]
+script = ExtResource("1_on3bg")
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall"]
+polygon = PackedVector2Array(28, 727, 1340, 727, 1340, 23, 13, 23, 22, 708, -70, 708, -87, -45, 1408, -64, 1419, 854, -44, 822, -36, 716)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_yd0ei")
+
+[node name="player_marker" type="Marker2D" parent="."]
+position = Vector2(1168, 419)
+
+[node name="angry_marker" type="Marker2D" parent="."]
+position = Vector2(684, 365)
+
+[node name="Player" parent="." instance=ExtResource("3_m3d74")]
+position = Vector2(70, 104)
+current_condition = 1
+
+[node name="angry" parent="." node_paths=PackedStringArray("target") instance=ExtResource("2_pv1ax")]
+target = NodePath("../Player")

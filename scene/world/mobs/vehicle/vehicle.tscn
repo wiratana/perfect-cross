@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://be7nu0t3b574q"]
+
+[ext_resource type="Script" path="res://scene/world/mobs/vehicle/vehicle.gd" id="1_j8uqm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_idnrj"]
+size = Vector2(32, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uwwgo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_33xgi"]
+size = Vector2(28, 17)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4qwjf"]
+radius = 5.0
+
+[node name="vehicle" type="CharacterBody2D"]
+script = ExtResource("1_j8uqm")
+
+[node name="Panel" type="ColorRect" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(0.2, 0.4, 1, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 23.5)
+shape = SubResource("RectangleShape2D_idnrj")
+
+[node name="end_of_vision" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="end_of_vision"]
+position = Vector2(137.5, 23.5)
+shape = SubResource("CircleShape2D_uwwgo")
+
+[node name="entity_detector" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="entity_detector"]
+position = Vector2(49, 23.5)
+shape = SubResource("RectangleShape2D_33xgi")
+
+[node name="center_position" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="center_position"]
+position = Vector2(16, 24)
+shape = SubResource("CircleShape2D_4qwjf")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -11.0
+offset_top = -28.0
+offset_right = 48.0
+offset_bottom = -2.0
+text = "Vehicle"
+
+[connection signal="area_entered" from="end_of_vision" to="." method="_on_end_of_vision_area_entered"]
+[connection signal="body_entered" from="entity_detector" to="." method="_on_entity_detector_body_entered"]
+[connection signal="body_exited" from="entity_detector" to="." method="_on_entity_detector_body_exited"]
+[connection signal="area_exited" from="center_position" to="." method="_on_center_position_area_exited"]

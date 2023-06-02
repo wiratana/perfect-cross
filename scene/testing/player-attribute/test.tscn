@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cffan56wrxvdy"]
+
+[ext_resource type="PackedScene" uid="uid://n27w1i3lwnd1" path="res://scene/testing/player-attribute/attribute-tester-obstacle/attribute-tester-obstacle.tscn" id="1_026km"]
+[ext_resource type="PackedScene" uid="uid://cjbrx20evdha" path="res://scene/player/player.tscn" id="2_p6071"]
+
+[node name="test" type="Node2D"]
+
+[node name="attribute-tester-obstacle" parent="." instance=ExtResource("1_026km")]
+position = Vector2(157, 62)
+health_decrease_value = 1
+knockback = Vector2(20, 20)
+
+[node name="attribute-tester-obstacle2" parent="." instance=ExtResource("1_026km")]
+position = Vector2(473, 313)
+type_of_testing = 2
+pinalty_decrease_value = 1
+knockback = Vector2(10, 10)
+
+[node name="attribute-tester-obstacle3" parent="." instance=ExtResource("1_026km")]
+position = Vector2(468, 66)
+type_of_testing = 1
+health_increase_value = 1
+knockback = Vector2(10, 10)
+
+[node name="attribute-tester-obstacle4" parent="." instance=ExtResource("1_026km")]
+position = Vector2(161, 316)
+type_of_testing = 3
+pinalty_increase_value = 1
+knockback = Vector2(10, 10)
+
+[node name="Player" parent="." instance=ExtResource("2_p6071")]
+position = Vector2(308, 180)

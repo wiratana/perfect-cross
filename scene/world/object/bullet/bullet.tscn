@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjn3tgy5bbaf0"]
+
+[ext_resource type="Script" path="res://scene/world/object/bullet/bullet.gd" id="1_rnw3g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hgqnv"]
+radius = 7.0
+
+[node name="bullet" type="CharacterBody2D" groups=["bullets"]]
+script = ExtResource("1_rnw3g")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = 8.0
+offset_top = 5.0
+offset_right = 24.0
+offset_bottom = 21.0
+
+[node name="KillTimer" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 13)
+shape = SubResource("CircleShape2D_hgqnv")
+
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

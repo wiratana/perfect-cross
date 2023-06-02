@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3 uid="uid://cjbrx20evdha"]
+
+[ext_resource type="Script" path="res://scene/player/player.gd" id="1_nkbru"]
+[ext_resource type="Script" path="res://scene/player/Dash.gd" id="2_i2jxw"]
+[ext_resource type="PackedScene" uid="uid://cggqb75a8w8r" path="res://addons/debug_menu/debug_menu.tscn" id="3_ajmng"]
+[ext_resource type="Script" path="res://scene/player/Knockback.gd" id="4_axiox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yqkd0"]
+size = Vector2(32, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_amned"]
+size = Vector2(34, 34)
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+position = Vector2(21, 20)
+script = ExtResource("1_nkbru")
+
+[node name="Panel" type="ColorRect" parent="."]
+modulate = Color(1, 0, 0.121569, 1)
+offset_right = 32.0
+offset_bottom = 32.0
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 27)
+shape = SubResource("RectangleShape2D_yqkd0")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+
+[node name="Dash" type="Node2D" parent="."]
+script = ExtResource("2_i2jxw")
+
+[node name="DashTimer" type="Timer" parent="Dash"]
+one_shot = true
+
+[node name="DashDelay" type="Timer" parent="Dash"]
+one_shot = true
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_amned")
+
+[node name="DebugMenu" parent="." instance=ExtResource("3_ajmng")]
+visible = false
+offset_left = 283.0
+offset_top = -260.0
+offset_right = 683.0
+offset_bottom = 350.0
+
+[node name="labels" type="Node2D" parent="."]
+
+[node name="identity" type="Label" parent="labels"]
+offset_left = -4.0
+offset_top = -84.0
+offset_right = 46.0
+offset_bottom = -58.0
+text = "player"
+
+[node name="health_status" type="Label" parent="labels"]
+offset_left = -2.0
+offset_top = -54.0
+offset_right = 38.0
+offset_bottom = -31.0
+
+[node name="pinalty_status" type="Label" parent="labels"]
+offset_left = -2.0
+offset_top = -33.0
+offset_right = 38.0
+offset_bottom = -10.0
+
+[node name="Knockback" type="Node2D" parent="."]
+script = ExtResource("4_axiox")
+
+[node name="StuntTimer" type="Timer" parent="Knockback"]
+one_shot = true
+
+[connection signal="timeout" from="Dash/DashTimer" to="Dash" method="_on_dash_timer_timeout"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

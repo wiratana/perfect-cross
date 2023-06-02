@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ct4rebmee8832"]
+
+[ext_resource type="Script" path="res://scene/world/route_system/route_system.gd" id="1_jkp1p"]
+
+[node name="route_system" type="Node2D"]
+script = ExtResource("1_jkp1p")

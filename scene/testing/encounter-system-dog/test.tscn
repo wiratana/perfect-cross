@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://qdrreefgkd6i"]
+
+[ext_resource type="Script" path="res://scene/testing/encounter-system-dog/test.gd" id="1_brcmc"]
+[ext_resource type="PackedScene" uid="uid://cjbrx20evdha" path="res://scene/player/player.tscn" id="1_hxfxo"]
+[ext_resource type="PackedScene" uid="uid://cj77725fmfrur" path="res://scene/world/mobs/animal/dog/dog.tscn" id="3_tpdib"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_t1u4h"]
+vertices = PackedVector2Array(-116, -83, 1436, -88, 1461, 882, -78, 861)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-116, -83, 1436, -88, 1461, 882, -78, 861)])
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xii4b"]
+size = Vector2(1261, 661.5)
+
+[node name="test" type="Node2D"]
+script = ExtResource("1_brcmc")
+
+[node name="Player" parent="." instance=ExtResource("1_hxfxo")]
+position = Vector2(98, 214)
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall"]
+polygon = PackedVector2Array(28, 727, 1340, 727, 1340, 23, 13, 23, 22, 708, -70, 708, -87, -45, 1408, -64, 1419, 854, -44, 822, -36, 716)
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_t1u4h")
+
+[node name="player_marker" type="Marker2D" parent="."]
+position = Vector2(1168, 419)
+
+[node name="dog_marker" type="Marker2D" parent="."]
+position = Vector2(135, 381)
+
+[node name="dog" parent="." node_paths=PackedStringArray("encounter_target") instance=ExtResource("3_tpdib")]
+position = Vector2(1130, 277)
+scale = Vector2(0.994263, 1)
+current_state = 1
+encounter_target = NodePath("../Player")
+
+[node name="battle_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="battle_area"]
+position = Vector2(681, 376)
+shape = SubResource("RectangleShape2D_xii4b")

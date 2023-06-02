@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj77725fmfrur"]
+
+[ext_resource type="Script" path="res://scene/world/mobs/animal/dog/dog.gd" id="1_7tocy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7oi6l"]
+size = Vector2(32, 13)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v43ob"]
+radius = 315.102
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_14fnm"]
+size = Vector2(34, 15)
+
+[node name="dog" type="CharacterBody2D" groups=["enemy"]]
+script = ExtResource("1_7tocy")
+
+[node name="Panel" type="ColorRect" parent="."]
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(1, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 25.5)
+shape = SubResource("RectangleShape2D_7oi6l")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+debug_enabled = true
+
+[node name="viewing_distance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="viewing_distance"]
+position = Vector2(10, -8)
+shape = SubResource("CircleShape2D_v43ob")
+
+[node name="refresh" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="Label" type="Label" parent="."]
+offset_left = -4.0
+offset_top = -30.0
+offset_right = 36.0
+offset_bottom = -4.0
+text = "Dog"
+
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(16, 25.5)
+shape = SubResource("RectangleShape2D_14fnm")
+
+[connection signal="body_entered" from="viewing_distance" to="." method="_on_viewing_distance_body_entered"]
+[connection signal="body_exited" from="viewing_distance" to="." method="_on_viewing_distance_body_exited"]
+[connection signal="timeout" from="refresh" to="." method="_on_refresh_timeout"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

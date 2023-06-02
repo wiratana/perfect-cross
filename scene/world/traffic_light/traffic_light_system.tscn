@@ -1,0 +1,85 @@
+[gd_scene load_steps=7 format=3 uid="uid://buqk5q2ynq0ss"]
+
+[ext_resource type="Script" path="res://scene/world/traffic_light/traffic_light_system.gd" id="1_64slh"]
+[ext_resource type="Script" path="res://scene/world/traffic_light/traffic_sign_system.gd" id="2_4hdgu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_778es"]
+size = Vector2(117, 37)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_stfqd"]
+size = Vector2(38.5, 118)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2hra4"]
+size = Vector2(39, 115)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kfu17"]
+size = Vector2(115, 37)
+
+[node name="traffic_light_system" type="Node2D"]
+script = ExtResource("1_64slh")
+vahicle_wait_time = 10
+padestrian_wait_time = 5
+
+[node name="vahicle_update_counter" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="padestrian_update_counter" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="." groups=["traffic_light_system"]]
+script = ExtResource("2_4hdgu")
+index = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1880.5, 309.5)
+shape = SubResource("RectangleShape2D_778es")
+
+[node name="Label" type="Label" parent="Area2D"]
+offset_left = 1826.0
+offset_top = 247.0
+offset_right = 1934.0
+offset_bottom = 278.0
+
+[node name="Area2D2" type="Area2D" parent="." groups=["traffic_light_system"]]
+script = ExtResource("2_4hdgu")
+index = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+position = Vector2(1962.75, 392)
+shape = SubResource("RectangleShape2D_stfqd")
+
+[node name="Label" type="Label" parent="Area2D2"]
+offset_left = 2010.0
+offset_top = 378.0
+offset_right = 2118.0
+offset_bottom = 409.0
+
+[node name="Area2D3" type="Area2D" parent="." groups=["traffic_light_system"]]
+script = ExtResource("2_4hdgu")
+index = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D3"]
+position = Vector2(1796.5, 392.5)
+shape = SubResource("RectangleShape2D_2hra4")
+
+[node name="Label" type="Label" parent="Area2D3"]
+offset_left = 1647.0
+offset_top = 375.0
+offset_right = 1755.0
+offset_bottom = 406.0
+
+[node name="Area2D4" type="Area2D" parent="." groups=["traffic_light_system"]]
+script = ExtResource("2_4hdgu")
+index = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D4"]
+position = Vector2(1880.5, 474.5)
+shape = SubResource("RectangleShape2D_kfu17")
+
+[node name="Label" type="Label" parent="Area2D4"]
+offset_left = 1824.0
+offset_top = 503.0
+offset_right = 1932.0
+offset_bottom = 534.0
+
+[connection signal="timeout" from="vahicle_update_counter" to="." method="_on_vahicle_update_counter_timeout"]
+[connection signal="timeout" from="padestrian_update_counter" to="." method="_on_padestrian_update_counter_timeout"]
