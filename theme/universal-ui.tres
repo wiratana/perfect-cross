@@ -1,0 +1,37 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://2fiw1auuiywe"]
+
+[ext_resource type="FontFile" uid="uid://cpyb5ym458b33" path="res://assets/font/NerkoOne-Regular.ttf" id="1_sxirg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cax62"]
+bg_color = Color(0.415686, 0.760784, 1, 1)
+border_width_left = 2
+border_width_top = 10
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0666667, 0.407843, 0.615686, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kaabu"]
+bg_color = Color(0.415686, 0.760784, 1, 1)
+border_width_bottom = 10
+border_color = Color(0.12549, 0.541176, 0.803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+shadow_size = 2
+shadow_offset = Vector2(0, 3)
+
+[resource]
+default_font = ExtResource("1_sxirg")
+default_font_size = 32
+Button/colors/font_outline_color = Color(0.4, 0.4, 0.4, 1)
+Button/constants/outline_size = 10
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_sxirg")
+Button/styles/hover = SubResource("StyleBoxFlat_cax62")
+Button/styles/normal = SubResource("StyleBoxFlat_kaabu")
+Button/styles/pressed = SubResource("StyleBoxFlat_cax62")
