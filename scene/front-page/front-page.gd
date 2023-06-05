@@ -3,10 +3,11 @@ extends Node2D
 @onready var start_button  = $VBoxContainer/start_btn
 @onready var credit_button = $VBoxContainer/credit_btn
 @onready var exit_button   = $VBoxContainer/exit_btn
+@onready var anim_player   = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	anim_player.play("logo_dancing")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
