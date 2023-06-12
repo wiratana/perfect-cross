@@ -29,6 +29,12 @@ shape = SubResource("RectangleShape2D_yqkd0")
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 
+[node name="DebugMenu" parent="Camera2D" instance=ExtResource("3_ajmng")]
+offset_left = 46.0
+offset_top = -273.0
+offset_right = 446.0
+offset_bottom = 337.0
+
 [node name="Dash" type="Node2D" parent="."]
 script = ExtResource("2_i2jxw")
 
@@ -43,13 +49,6 @@ one_shot = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_amned")
-
-[node name="DebugMenu" parent="." instance=ExtResource("3_ajmng")]
-visible = false
-offset_left = 283.0
-offset_top = -260.0
-offset_right = 683.0
-offset_bottom = 350.0
 
 [node name="labels" type="Node2D" parent="."]
 

@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal in_danger_area
+
 enum STATE{IDLE, WALK, DASH, HIT}
 enum CONDITION{NORMAL, ENCOUNTER}
 
@@ -9,6 +11,7 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @export var health     = 3
 @export var pinalty    = 3
 @export var current_condition = CONDITION.NORMAL
+@export var map:TileMap
 
 @onready var dash = $Dash
 @onready var knockback = $Knockback
@@ -17,6 +20,9 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @onready var dashing : bool
 @onready var current_state = STATE.IDLE
 
+
+func _ready():
+	pass
 
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
@@ -60,6 +66,10 @@ func _physics_process(delta):
 	self.get_input()
 	self.move_and_slide()
 	self.set_label()
+	
+	var data = map.get_cell_tile_data(0,map.local_to_map(self.position))
+	if data && data.get_custom_data("danger_area") == 1:
+		emit_signal("in_danger_area")
 
 func _on_hurtbox_body_entered(body):
 	match current_condition:
