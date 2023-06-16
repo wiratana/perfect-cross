@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvapm60fnwv6"
-path="res://.godot/imported/RCG_Walk_02.png-22b3ac2a3c324c977becd46d5b8dcd78.ctex"
+uid="uid://bupyw4w365h1a"
+path="res://.godot/imported/RCG_Walk_04.png-d7c229cf3a7164318fcb8b9c48e49bc0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprite/RCG_Walk_02.png"
-dest_files=["res://.godot/imported/RCG_Walk_02.png-22b3ac2a3c324c977becd46d5b8dcd78.ctex"]
+source_file="res://assets/sprite/char/main/RCG_Walk_04.png"
+dest_files=["res://.godot/imported/RCG_Walk_04.png-d7c229cf3a7164318fcb8b9c48e49bc0.ctex"]
 
 [params]
 
