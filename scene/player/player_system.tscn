@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://bqamb6x2jurlo"]
+
+[ext_resource type="Script" path="res://scene/testing_proper_camera.gd" id="1_a3eka"]
+[ext_resource type="PackedScene" uid="uid://cjbrx20evdha" path="res://scene/player/player.tscn" id="2_veps4"]
+[ext_resource type="Script" path="res://scene/player/player-ui.gd" id="3_o2i4e"]
+[ext_resource type="Texture2D" uid="uid://djginoco3bv0g" path="res://assets/image/police.png" id="4_slxq5"]
+[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="5_utoqa"]
+[ext_resource type="Texture2D" uid="uid://je0gaoj2qbm3" path="res://assets/sprite/ui/fail_paper.png" id="6_u78i8"]
+[ext_resource type="Texture2D" uid="uid://b7info15hpdcc" path="res://assets/sprite/ui/profile.png" id="7_v105t"]
+
+[node name="player-system" type="Node2D"]
+script = ExtResource("1_a3eka")
+
+[node name="Player" parent="." node_paths=PackedStringArray("map") instance=ExtResource("2_veps4")]
+map = NodePath("../../TileMap")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+top_level = true
+gizmo_extents = 20.0
+
+[node name="Camera2D" type="Camera2D" parent="Marker2D"]
+position_smoothing_speed = 2.0
+
+[node name="UI" type="Control" parent="Marker2D" node_paths=PackedStringArray("player")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -448.0
+offset_top = -256.0
+offset_right = -1.0
+offset_bottom = -1.0
+script = ExtResource("3_o2i4e")
+player = NodePath("../../Player")
+
+[node name="police_alert" type="Node2D" parent="Marker2D/UI"]
+position = Vector2(448, 256)
+
+[node name="Police" type="Sprite2D" parent="Marker2D/UI/police_alert"]
+position = Vector2(649, -7)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_slxq5")
+
+[node name="ProgressBar" type="ProgressBar" parent="Marker2D/UI"]
+layout_mode = 2
+offset_left = 120.0
+offset_top = 41.0
+offset_right = 400.0
+offset_bottom = 101.0
+theme = ExtResource("5_utoqa")
+
+[node name="pinalty" type="HBoxContainer" parent="Marker2D/UI"]
+layout_mode = 0
+offset_left = 129.0
+offset_top = 108.0
+offset_right = 400.0
+offset_bottom = 174.0
+
+[node name="FailPaper" type="Sprite2D" parent="Marker2D/UI/pinalty"]
+position = Vector2(30, 43)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_u78i8")
+
+[node name="FailPaper2" type="Sprite2D" parent="Marker2D/UI/pinalty"]
+position = Vector2(100, 43)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_u78i8")
+
+[node name="FailPaper3" type="Sprite2D" parent="Marker2D/UI/pinalty"]
+position = Vector2(170, 43)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_u78i8")
+
+[node name="Sprite2D" type="Sprite2D" parent="Marker2D/UI"]
+position = Vector2(75, 75)
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("7_v105t")
+hframes = 4
+
+[node name="pinalty_confirmation" type="Panel" parent="Marker2D/UI"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 192.0
+offset_right = 317.0
+offset_bottom = 448.0
+theme = ExtResource("5_utoqa")
+
+[node name="pinalty_text" type="TextEdit" parent="Marker2D/UI/pinalty_confirmation"]
+layout_mode = 1
+offset_right = 287.0
+offset_bottom = 105.0
+theme = ExtResource("5_utoqa")
+wrap_mode = 1
+
+[node name="pinalty_button" type="Button" parent="Marker2D/UI/pinalty_confirmation"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 124.0
+offset_right = 213.0
+offset_bottom = 182.0
+text = "Confirm"
+
+[connection signal="game_over" from="Player" to="Marker2D/UI" method="_on_player_game_over"]
+[connection signal="in_danger_area" from="Player" to="Marker2D/UI" method="_on_player_in_danger_area"]
+[connection signal="pressed" from="Marker2D/UI/pinalty_confirmation/pinalty_button" to="Marker2D/UI" method="_on_pinalty_button_pressed"]

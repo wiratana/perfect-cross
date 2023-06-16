@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://2fiw1auuiywe"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://2fiw1auuiywe"]
 
 [ext_resource type="FontFile" uid="uid://cpyb5ym458b33" path="res://assets/font/NerkoOne-Regular.ttf" id="1_sxirg"]
 
@@ -25,13 +25,92 @@ corner_radius_bottom_left = 10
 shadow_size = 2
 shadow_offset = Vector2(0, 3)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_al551"]
+bg_color = Color(0, 0.67451, 0.996078, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.12549, 0.541176, 0.803922, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 10.0
+expand_margin_top = 10.0
+expand_margin_right = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 4
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lvxab"]
+bg_color = Color(0.415686, 0.760784, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.12549, 0.541176, 0.803922, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_size = 1
+shadow_offset = Vector2(0, 3)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m8cix"]
+bg_color = Color(0.941176, 0.505882, 0.615686, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ekd3y"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.858824, 0.47451, 0.572549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5vh4"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.858824, 0.47451, 0.572549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tv6k0"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0.858824, 0.47451, 0.572549, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
 [resource]
 default_font = ExtResource("1_sxirg")
 default_font_size = 32
-Button/colors/font_outline_color = Color(0.4, 0.4, 0.4, 1)
+Button/colors/font_outline_color = Color(0.12549, 0.541176, 0.803922, 1)
 Button/constants/outline_size = 10
 Button/font_sizes/font_size = 32
 Button/fonts/font = ExtResource("1_sxirg")
 Button/styles/hover = SubResource("StyleBoxFlat_cax62")
 Button/styles/normal = SubResource("StyleBoxFlat_kaabu")
 Button/styles/pressed = SubResource("StyleBoxFlat_cax62")
+Panel/styles/panel = SubResource("StyleBoxFlat_al551")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_lvxab")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_m8cix")
+TextEdit/colors/caret_color = Color(0.94902, 0.94902, 0.94902, 1)
+TextEdit/styles/focus = SubResource("StyleBoxFlat_ekd3y")
+TextEdit/styles/normal = SubResource("StyleBoxFlat_e5vh4")
+TextEdit/styles/read_only = SubResource("StyleBoxFlat_tv6k0")

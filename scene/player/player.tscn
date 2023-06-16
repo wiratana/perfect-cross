@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://cjbrx20evdha"]
+[gd_scene load_steps=6 format=3 uid="uid://cjbrx20evdha"]
 
 [ext_resource type="Script" path="res://scene/player/player.gd" id="1_nkbru"]
 [ext_resource type="Script" path="res://scene/player/Dash.gd" id="2_i2jxw"]
-[ext_resource type="PackedScene" uid="uid://cggqb75a8w8r" path="res://addons/debug_menu/debug_menu.tscn" id="3_ajmng"]
 [ext_resource type="Script" path="res://scene/player/Knockback.gd" id="4_axiox"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqkd0"]
@@ -24,16 +23,6 @@ metadata/_edit_use_anchors_ = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(16, 27)
 shape = SubResource("RectangleShape2D_yqkd0")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
-[node name="DebugMenu" parent="Camera2D" instance=ExtResource("3_ajmng")]
-offset_left = 46.0
-offset_top = -273.0
-offset_right = 446.0
-offset_bottom = 337.0
 
 [node name="Dash" type="Node2D" parent="."]
 script = ExtResource("2_i2jxw")
@@ -75,6 +64,9 @@ offset_bottom = -10.0
 script = ExtResource("4_axiox")
 
 [node name="StuntTimer" type="Timer" parent="Knockback"]
+one_shot = true
+
+[node name="imune" type="Timer" parent="."]
 one_shot = true
 
 [connection signal="timeout" from="Dash/DashTimer" to="Dash" method="_on_dash_timer_timeout"]
