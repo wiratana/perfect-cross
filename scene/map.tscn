@@ -285,6 +285,6 @@ position = Vector2(848, 83)
 [node name="checkpoint" parent="." instance=ExtResource("6_y3rkk")]
 position = Vector2(542, 52)
 
-[node name="player-system" parent="." instance=ExtResource("6_so2p0")]
+[node name="player_system" parent="." instance=ExtResource("6_so2p0")]
 
 [connection signal="get_finish" from="checkpoint" to="." method="_on_checkpoint_get_finish"]

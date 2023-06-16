@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://je0gaoj2qbm3" path="res://assets/sprite/ui/fail_paper.png" id="6_u78i8"]
 [ext_resource type="Texture2D" uid="uid://b7info15hpdcc" path="res://assets/sprite/ui/profile.png" id="7_v105t"]
 
-[node name="player-system" type="Node2D"]
+[node name="player_system" type="Node2D"]
 script = ExtResource("1_xdnkj")
 
 [node name="Player" parent="." node_paths=PackedStringArray("map") instance=ExtResource("2_veps4")]
