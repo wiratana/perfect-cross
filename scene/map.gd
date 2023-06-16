@@ -13,3 +13,8 @@ func _process(delta):
 
 func _on_player_in_danger_area():
 	print("waaaaaaaaa..........!!!")
+	pass
+
+
+func _on_checkpoint_get_finish():
+	print("yeaaaaaayyyyyyy.....!!!"                                                                                                                                                                                                                                                                                                                                    )
