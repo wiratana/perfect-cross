@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqamb6x2jurlo"]
 
-[ext_resource type="Script" path="res://scene/testing_proper_camera.gd" id="1_a3eka"]
+[ext_resource type="Script" path="res://scene/player/camera-system.gd" id="1_xdnkj"]
 [ext_resource type="PackedScene" uid="uid://cjbrx20evdha" path="res://scene/player/player.tscn" id="2_veps4"]
 [ext_resource type="Script" path="res://scene/player/player-ui.gd" id="3_o2i4e"]
 [ext_resource type="Texture2D" uid="uid://djginoco3bv0g" path="res://assets/image/police.png" id="4_slxq5"]
@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://b7info15hpdcc" path="res://assets/sprite/ui/profile.png" id="7_v105t"]
 
 [node name="player-system" type="Node2D"]
-script = ExtResource("1_a3eka")
+script = ExtResource("1_xdnkj")
 
 [node name="Player" parent="." node_paths=PackedStringArray("map") instance=ExtResource("2_veps4")]
 map = NodePath("../../TileMap")
