@@ -15,14 +15,20 @@ run/main_scene="res://scene/game.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+load_scene="*res://scene/load_scene/load_scene.gd"
+
 [debug]
 
 gdscript/warnings/native_method_override=1
 
 [display]
 
-window/size/viewport_width=1366
-window/size/viewport_height=768
+window/size/viewport_width=896
+window/size/viewport_height=512
+window/size/window_width_override=1366
+window/size/window_height_override=768
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0
 
