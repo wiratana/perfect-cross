@@ -1,0 +1,166 @@
+[gd_scene load_steps=7 format=3 uid="uid://4fl761qy3d3h"]
+
+[ext_resource type="Script" path="res://scene/checkpoint/checkpoint.gd" id="1_t3x1a"]
+[ext_resource type="Texture2D" uid="uid://maolkyu65rse" path="res://assets/sprite/effect/aura.png" id="2_p6d0x"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ob2s0"]
+radius = 26.25
+height = 109.5
+
+[sub_resource type="Animation" id="Animation_4l0jh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("end_point/Sprite2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("start_point/Sprite2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("end_point/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("start_point/Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fu3qb"]
+resource_name = "aura_idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("start_point/Sprite2D:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.588235)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("end_point/Sprite2D:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.588235)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("start_point/Sprite2D:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("end_point/Sprite2D:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(0.25, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.05)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vcdiv"]
+_data = {
+"RESET": SubResource("Animation_4l0jh"),
+"aura_idle": SubResource("Animation_fu3qb")
+}
+
+[node name="checkpoint" type="Node2D"]
+script = ExtResource("1_t3x1a")
+
+[node name="start_point" type="Marker2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="start_point"]
+texture = ExtResource("2_p6d0x")
+
+[node name="start_point_area" type="Area2D" parent="start_point"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="start_point/start_point_area"]
+position = Vector2(0, 81)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ob2s0")
+
+[node name="VisibleOnScreenNotifier2D2" type="VisibleOnScreenNotifier2D" parent="start_point/start_point_area"]
+position = Vector2(1, 24)
+scale = Vector2(13.9, 13.4063)
+
+[node name="end_point" type="Marker2D" parent="."]
+position = Vector2(650, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="end_point"]
+texture = ExtResource("2_p6d0x")
+
+[node name="end_point_area" type="Area2D" parent="end_point"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="end_point/end_point_area"]
+position = Vector2(0, 81)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_ob2s0")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="end_point/end_point_area"]
+position = Vector2(2, 26)
+scale = Vector2(13.9006, 13.4806)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_vcdiv")
+}
+
+[connection signal="body_exited" from="start_point/start_point_area" to="." method="_on_start_point_area_body_exited"]
+[connection signal="screen_entered" from="start_point/start_point_area/VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="start_point/start_point_area/VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="body_entered" from="end_point/end_point_area" to="." method="_on_end_point_area_body_entered"]
+[connection signal="screen_entered" from="end_point/end_point_area/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="end_point/end_point_area/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
