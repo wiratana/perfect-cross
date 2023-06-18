@@ -1,21 +1,21 @@
 [gd_scene load_steps=12 format=3 uid="uid://dc872yaqf27od"]
 
-[ext_resource type="Script" path="res://scene/front-page/front-page.gd" id="1_wcwwk"]
-[ext_resource type="Texture2D" uid="uid://b7wtd0el5vcwf" path="res://assets/image/logo.png" id="2_e4gbp"]
-[ext_resource type="Texture2D" uid="uid://byr13alrwpu1t" path="res://assets/image/character_showcase.png" id="3_gweio"]
-[ext_resource type="Texture2D" uid="uid://qmt6dxy82xsw" path="res://assets/ui/menu.png" id="4_4klvt"]
-[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="5_r7rdq"]
+[ext_resource type="Script" path="res://scene/screen/home_screen/home_screen.gd" id="1_7kp0d"]
+[ext_resource type="Texture2D" uid="uid://b7wtd0el5vcwf" path="res://assets/image/logo.png" id="2_asdoy"]
+[ext_resource type="Texture2D" uid="uid://byr13alrwpu1t" path="res://assets/image/character_showcase.png" id="3_bplow"]
+[ext_resource type="Texture2D" uid="uid://qmt6dxy82xsw" path="res://assets/ui/menu.png" id="4_tbce6"]
+[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="5_lfw51"]
 
 [sub_resource type="Gradient" id="Gradient_be6ko"]
 colors = PackedColorArray(0.184314, 0.501961, 0.929412, 1, 0.337255, 0.8, 0.94902, 1)
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mk2n6"]
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bm21t"]
 gradient = SubResource("Gradient_be6ko")
 fill_from = Vector2(0.521368, 1)
 fill_to = Vector2(0.521368, 0)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pg4hp"]
-texture = SubResource("GradientTexture2D_mk2n6")
+texture = SubResource("GradientTexture2D_bm21t")
 
 [sub_resource type="Animation" id="Animation_41jes"]
 length = 0.001
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(400, 191), Vector2(400, 222)]
+"values": [Vector2(250, 90), Vector2(250, 125)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4mtpr"]
@@ -56,27 +56,27 @@ _data = {
 }
 
 [node name="front-page" type="Node2D"]
-script = ExtResource("1_wcwwk")
+script = ExtResource("1_7kp0d")
 
 [node name="Panel" type="Panel" parent="."]
-offset_right = 1366.0
-offset_bottom = 768.0
+offset_right = 896.0
+offset_bottom = 512.0
 theme_override_styles/panel = SubResource("StyleBoxTexture_pg4hp")
 
 [node name="Logo" type="Sprite2D" parent="."]
 position = Vector2(400, 191)
-scale = Vector2(0.458333, 0.458333)
-texture = ExtResource("2_e4gbp")
+scale = Vector2(0.221756, 0.221756)
+texture = ExtResource("2_asdoy")
 
 [node name="CharacterShowcase" type="Sprite2D" parent="."]
-position = Vector2(1021, 396)
-scale = Vector2(0.400356, 0.400356)
-texture = ExtResource("3_gweio")
+position = Vector2(663, 257)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_bplow")
 
 [node name="Menu" type="Sprite2D" parent="."]
-position = Vector2(396, 516)
-scale = Vector2(0.560862, 0.560862)
-texture = ExtResource("4_4klvt")
+position = Vector2(248, 310)
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("4_tbce6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 8
@@ -84,12 +84,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 267.0
-offset_top = 422.0
-offset_right = 530.0
-offset_bottom = 607.0
+offset_left = 167.0
+offset_top = 251.0
+offset_right = 430.0
+offset_bottom = 436.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.6, 0.6)
 size_flags_horizontal = 4
 size_flags_vertical = 4
 alignment = 1
@@ -97,19 +98,19 @@ alignment = 1
 [node name="start_btn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_top = NodePath("../exit_btn")
-theme = ExtResource("5_r7rdq")
+theme = ExtResource("5_lfw51")
 text = "Start
 "
 
 [node name="credit_btn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
-theme = ExtResource("5_r7rdq")
+theme = ExtResource("5_lfw51")
 text = "Credit"
 
 [node name="exit_btn" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../start_btn")
-theme = ExtResource("5_r7rdq")
+theme = ExtResource("5_lfw51")
 text = "Exit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

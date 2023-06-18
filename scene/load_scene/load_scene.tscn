@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://ca3cplkl8kjr1"]
+
+[ext_resource type="Script" path="res://scene/load_scene/load_scene.gd" id="1_ibg62"]
+[ext_resource type="Texture2D" uid="uid://b7wtd0el5vcwf" path="res://assets/image/logo.png" id="2_w0qed"]
+[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="3_kb5fw"]
+
+[sub_resource type="Gradient" id="Gradient_ld2kx"]
+colors = PackedColorArray(0.184314, 0.501961, 0.929412, 1, 0.337255, 0.8, 0.94902, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mk2n6"]
+gradient = SubResource("Gradient_ld2kx")
+fill_from = Vector2(0.521368, 1)
+fill_to = Vector2(0.521368, 0)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x6uyf"]
+texture = SubResource("GradientTexture2D_mk2n6")
+
+[node name="load_scene" type="Node2D"]
+script = ExtResource("1_ibg62")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 896.0
+offset_bottom = 512.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_x6uyf")
+
+[node name="Logo" type="Sprite2D" parent="Panel"]
+position = Vector2(157, 64)
+scale = Vector2(0.203218, 0.203218)
+texture = ExtResource("2_w0qed")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 154.0
+offset_top = 406.0
+offset_right = 754.0
+offset_bottom = 456.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_kb5fw")
