@@ -7,6 +7,27 @@ extends Control
 @onready var pc_text   = $pinalty_confirmation/pinalty_text
 @onready var pc_button = $pinalty_confirmation/pinalty_button
 @onready var pinalties = $pinalty
+@onready var health_bar = $health_bar
+@onready var survival_bar = $survival_bar
+@onready var profile = $profile
+
+func set_condition(condition):
+	player.current_condition = condition
+	setup_ui_health()
+
+func setup_ui_health():
+	if player.current_condition == Player.CONDITION.ENCOUNTER:
+		survival_bar.show()
+		health_bar.hide()
+		profile.hide()
+	if player.current_condition == Player.CONDITION.NORMAL:
+		survival_bar.hide()
+		health_bar.show()
+		profile.show()
+	
+	health_bar.max_value    = player.max_health
+	survival_bar.position.x = global.get_center_position_h() - survival_bar.size.x/2
+	survival_bar.position.y = survival_bar.size.y/2
 
 func setup_ui_police_alert():
 	police_alert.hide()
@@ -37,11 +58,12 @@ func _ready():
 	setup_ui_police_alert()
 	setup_ui_pinalty_confirmation()
 	setup_ui_pinalty()
+	setup_ui_health()
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	pass
+	health_bar.value = player.health
 
 func _on_player_in_danger_area():
 	var tween = create_tween()
@@ -57,6 +79,9 @@ func _on_player_in_danger_area():
 
 
 func _on_pinalty_button_pressed():
+	if player.health == 0 || player.pinalty == player.max_pinalty:
+		global.goto_prev_screen(self.get_path())
+	
 	pinalty_confirmation.hide()
 	player.disable_movement = false
 	player.imune.start()
@@ -77,5 +102,5 @@ func _on_player_game_over():
 	var tween = create_tween()
 	pc_text.text = "GAME OVER"
 	tween.tween_callback(func (): pinalty_confirmation.show()).set_delay(1)
-	
+	player.disable_movement = true
 	refresh_pinalty()

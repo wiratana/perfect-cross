@@ -9,7 +9,7 @@ enum CONDITION{NORMAL, ENCOUNTER}
 
 @export var move_speed = 150
 @export var dash_speed = 500
-@export var max_health  = 3
+@export var max_health  = 5
 @export var max_pinalty = 3
 @export var current_condition = CONDITION.NORMAL
 @export var map:TileMap
@@ -24,12 +24,13 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @onready var current_state = STATE.IDLE
 @onready var is_in_danger_area = false
 @onready var disable_movement = false
-@onready var health  = 0
+@onready var health  = -1
 @onready var pinalty = 0
 
 
 func _ready():
 	imune.wait_time = imune_duration
+	self.health		= self.max_health
 
 func get_input():
 	var input_direction = Vector2.ZERO if disable_movement else Input.get_vector("left", "right", "up", "down")
@@ -73,6 +74,17 @@ func _physics_process(delta):
 	self.get_input()
 	self.move_and_slide()
 	self.set_label()
+	
+	if global.respawn_status:
+		self.disable_movement = false
+		global.was_respawn()
+		
+	if self.health == 0:
+		emit_signal("game_over")
+		
+	if global.impact:
+		self.process_impact(global.impact)
+		global.impact = {}
 	
 	if map:
 		var data = map.get_cell_tile_data(0,map.local_to_map(self.position))

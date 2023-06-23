@@ -5,6 +5,11 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	global.set_main_scene(self)
+	global.set_normal_camera(player_system.get_node("Marker2D/Camera2D"))
+	global.get_encounter_camera().enabled = false
+	global.get_normal_camera().enabled = true
+	global.set_main_player(player_system.get_node("Player"))
 	player_system.player.map = map
 
 
@@ -20,4 +25,4 @@ func _on_player_in_danger_area():
 
 
 func _on_checkpoint_get_finish():
-	print("yeaaaaaayyyyyyy.....!!!"                                                                                                                                                                                                                                                                                                                                    )
+	print("yeaaaaaayyyyyyy.....!!!")

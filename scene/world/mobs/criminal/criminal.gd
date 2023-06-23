@@ -16,6 +16,7 @@ enum STATE{NORMAL, ENCOUNTER}
 @onready var refresh:Timer = $refresh
 @onready var progress_bar  = $ProgressBar
 @onready var nav_agent	   = $NavigationAgent2D
+@onready var encounter     = load("res://scene/world/mobs/criminal/encounter/encounter.tscn").instantiate()
 
 var is_time_to_rush = false
 var target:Node2D
@@ -112,6 +113,12 @@ func _on_hurtbox_body_entered(body):
 				
 			STATE.ENCOUNTER:
 				num_of_arrests -= 1
+				
+		if self.encounter_state == STATE.NORMAL:
+			get_tree().get_root().add_child(encounter)
+			global.set_enct_scene(encounter)
+			global.get_main_scene().hide()
+			self.queue_free()
 
 func _on_navigation_agent_2d_navigation_finished():
 	is_time_to_rush = false
