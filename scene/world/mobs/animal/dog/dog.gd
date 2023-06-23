@@ -10,6 +10,7 @@ signal is_dog_catch_player
 
 @onready var nav_agent = $NavigationAgent2D
 @onready var refresh   = $refresh
+@onready var encounter = load("res://scene/world/mobs/animal/dog/encounter/encounter.tscn").instantiate()
  
 var target:Node2D
 
@@ -73,6 +74,12 @@ func _on_hurtbox_body_entered(body):
 			if(body.is_in_group("player")):
 				refresh.stop()
 				target = null
+				
+				#enter encounter space
+				get_tree().get_root().add_child(encounter)
+				global.set_enct_scene(encounter)
+				global.get_main_scene().hide()
+				self.queue_free()
 		
 		STATE.ENCOUNTER:
 			if(body.is_in_group("player")):
