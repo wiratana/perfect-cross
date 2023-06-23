@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://b5qvws6amnajl"]
+[gd_scene load_steps=6 format=3 uid="uid://b5qvws6amnajl"]
 
 [ext_resource type="Script" path="res://scene/world/mobs/padestrian/padestrian.gd" id="1_5jfjw"]
 
@@ -9,6 +9,9 @@ size = Vector2(32, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g3tkn"]
 size = Vector2(31, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q8e1k"]
+size = Vector2(34, 22)
 
 [node name="padestrian" type="CharacterBody2D" groups=["padestrian"]]
 position = Vector2(26, 10)
@@ -45,7 +48,14 @@ offset_right = 60.0
 offset_bottom = -1.0
 text = "padestrian"
 
+[node name="hurtbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(16, 22)
+shape = SubResource("RectangleShape2D_q8e1k")
+
 [connection signal="area_entered" from="end_of_vision" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="end_of_vision" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="entity_detector" to="." method="_on_entity_detector_body_entered"]
 [connection signal="body_exited" from="entity_detector" to="." method="_on_entity_detector_body_exited"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

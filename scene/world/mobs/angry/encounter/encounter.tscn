@@ -1,0 +1,54 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8cnnurf7by65"]
+
+[ext_resource type="Script" path="res://scene/world/mobs/angry/encounter/encounter.gd" id="1_ddvbo"]
+[ext_resource type="TileSet" uid="uid://b7c6m3bk0j3d8" path="res://theme/tileset.tres" id="2_btp44"]
+[ext_resource type="PackedScene" uid="uid://bqamb6x2jurlo" path="res://scene/player/player_system.tscn" id="3_3a1ye"]
+[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="4_lymgp"]
+[ext_resource type="PackedScene" uid="uid://cc161rcmkto75" path="res://scene/world/mobs/angry/angry.tscn" id="4_yku8k"]
+
+[node name="encounter" type="Node2D"]
+script = ExtResource("1_ddvbo")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource("2_btp44")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 0, 1, 0, 0, 65537, 0, 0, 65536, 0, 0, 2, 0, 0, 3, 0, 0, 65539, 0, 0, 65538, 0, 0, 131073, 0, 0, 131072, 0, 0, 196608, 0, 0, 196609, 0, 0, 131075, 0, 0, 196611, 0, 0, 196610, 0, 0, 131074, 0, 0, 131076, 0, 0, 131077, 0, 0, 196613, 0, 0, 196612, 0, 0, 131078, 0, 0, 196614, 0, 0, 65542, 0, 0, 6, 0, 0, 5, 0, 0, 65541, 0, 0, 4, 0, 0, 65540, 0, 0)
+
+[node name="player_system" parent="." instance=ExtResource("3_3a1ye")]
+
+[node name="angry" parent="." instance=ExtResource("4_yku8k")]
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="wall"]
+polygon = PackedVector2Array(0, 512, 896, 512, 896, 0, 0, 0, 0, 512, 1, 511, 1, 1, 895, 1, 895, 511, 1, 511)
+
+[node name="player_marker" type="Marker2D" parent="."]
+position = Vector2(781, 254)
+
+[node name="angry_marker" type="Marker2D" parent="."]
+position = Vector2(95, 260)
+
+[node name="after_match" type="Panel" parent="."]
+offset_left = 28.0
+offset_top = 192.0
+offset_right = 317.0
+offset_bottom = 448.0
+theme = ExtResource("4_lymgp")
+
+[node name="pinalty_button" type="Button" parent="after_match"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 124.0
+offset_right = 213.0
+offset_bottom = 182.0
+text = "Confirm"
+
+[node name="encounter_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="shot" from="player_system/Player" to="." method="_on_player_shot"]
+[connection signal="pressed" from="after_match/pinalty_button" to="." method="_on_pinalty_button_pressed"]
+[connection signal="timeout" from="encounter_timer" to="." method="_on_encounter_timer_timeout"]
+
+[editable path="player_system"]

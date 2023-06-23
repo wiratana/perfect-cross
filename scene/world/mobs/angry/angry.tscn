@@ -25,15 +25,5 @@ one_shot = true
 
 [node name="rotater" type="Node2D" parent="."]
 
-[node name="life_time" type="Timer" parent="."]
-
-[node name="life_time_progress" type="ProgressBar" parent="."]
-offset_left = -25.0
-offset_top = -65.0
-offset_right = 28.0
-offset_bottom = -38.0
-show_percentage = false
-
 [connection signal="timeout" from="shoot" to="." method="_on_shoot_timeout"]
 [connection signal="timeout" from="aoe_shoot" to="." method="_on_aoe_shoot_timeout"]
-[connection signal="timeout" from="life_time" to="." method="_on_life_time_timeout"]

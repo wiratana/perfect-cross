@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://pukbv7uti0rd"]
+[gd_scene load_steps=9 format=3 uid="uid://pukbv7uti0rd"]
 
 [ext_resource type="Script" path="res://scene/map.gd" id="1_eccau"]
+[ext_resource type="PackedScene" uid="uid://b5qvws6amnajl" path="res://scene/world/mobs/padestrian/padestrian.tscn" id="2_vnloa"]
 [ext_resource type="TileSet" uid="uid://b7c6m3bk0j3d8" path="res://theme/tileset.tres" id="2_yuqs8"]
 [ext_resource type="PackedScene" uid="uid://808prb6f88kh" path="res://scene/world/object/box/box.tscn" id="6_8a6vb"]
 [ext_resource type="PackedScene" uid="uid://bqamb6x2jurlo" path="res://scene/player/player_system.tscn" id="6_so2p0"]
@@ -36,6 +37,12 @@ position = Vector2(247, 63)
 
 [node name="dog" parent="." instance=ExtResource("7_nweje")]
 position = Vector2(1561, 163)
+
+[node name="padestrian2" parent="." instance=ExtResource("2_vnloa")]
+position = Vector2(197, 180)
+
+[node name="padestrian" parent="." instance=ExtResource("2_vnloa")]
+position = Vector2(381, 40)
 
 [connection signal="is_criminal_catch_player" from="criminal" to="." method="_on_criminal_is_criminal_catch_player"]
 [connection signal="get_finish" from="checkpoint" to="." method="_on_checkpoint_get_finish"]

@@ -3,6 +3,7 @@ class_name Player
 
 signal in_danger_area
 signal game_over
+signal shot
 
 enum STATE{IDLE, WALK, DASH, HIT}
 enum CONDITION{NORMAL, ENCOUNTER}
@@ -103,7 +104,7 @@ func _on_hurtbox_body_entered(body):
 	match current_condition:
 		CONDITION.ENCOUNTER:
 			if body.is_in_group("bullets"):
-				body.queue_free()
+				emit_signal("shot")
 	
 	if current_state == STATE.DASH:
 		if body.is_in_group("obstacle"):

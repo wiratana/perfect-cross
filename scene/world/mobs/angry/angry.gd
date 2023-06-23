@@ -5,20 +5,17 @@ enum SHOT_TYPE{BASIC, AOE}
 signal shoot(shot_type:SHOT_TYPE)
 
 @export var rotate_speed:int = 50
-@export var spawn_point_count:int = 10
+@export var spawn_point_count:int = 6
 @export var radius:int = 40
 @export var shoot_time:float = 1
 @export var aoe_shoot_time:float = 0.2
 @export var aoe_shoot_duration:float = 5
-@export var shoot_aoe_cycle:int = 10
+@export var shoot_aoe_cycle:int = 6
 @export var target:Node2D
-@export var life_time_duration:int = 60
 
 @onready var shoot_refresh:Timer = $shoot
 @onready var aoe_shoot_refresh:Timer = $aoe_shoot
 @onready var rotater:Node2D = $rotater
-@onready var life_time:Timer = $life_time
-@onready var life_time_progress:ProgressBar = $life_time_progress
 @onready var bullet_scn = preload("res://scene/world/object/bullet/bullet.tscn")
 @onready var cycle_count:int = 0
 @onready var current_shooting_type = SHOT_TYPE.BASIC
@@ -26,9 +23,6 @@ signal shoot(shot_type:SHOT_TYPE)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	life_time.wait_time = life_time_duration
-	life_time_progress.max_value = life_time.wait_time
-	life_time_progress.value = 0
 	
 	var step  = 2 * PI / spawn_point_count
 	
@@ -42,13 +36,10 @@ func _ready():
 	aoe_shoot_refresh.wait_time = aoe_shoot_duration
 	shoot_refresh.wait_time = shoot_time
 	shoot_refresh.start()
-	life_time.start()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if !life_time.is_stopped():
-		life_time_progress.value = life_time.wait_time - life_time.time_left
 	
 	match current_shooting_type:
 		SHOT_TYPE.AOE:
@@ -95,7 +86,3 @@ func _on_shoot_timeout():
 func _on_aoe_shoot_timeout():
 	current_shooting_type = SHOT_TYPE.BASIC
 	shoot_refresh.wait_time = shoot_time
-
-
-func _on_life_time_timeout():
-	queue_free()

@@ -1,7 +1,8 @@
 class_name Padestrian extends Mob
 
-var crossing_area_entered
-var entity_detected = false
+@onready var crossing_area_entered
+@onready var entity_detected = false
+@onready var encounter = load("res://scene/world/mobs/angry/encounter/encounter.tscn").instantiate()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -32,3 +33,15 @@ func _on_entity_detector_body_entered(body):
 
 func _on_entity_detector_body_exited(body):
 	self.entity_detected = false
+
+
+func _on_hurtbox_body_entered(body):
+	if body.is_in_group("player"):
+		print(body.current_state)
+		if body.current_state == Player.STATE.DASH:
+			print("while dashing")
+			#enter encounter space
+			get_tree().get_root().add_child(encounter)
+			global.set_enct_scene(encounter)
+			global.get_main_scene().hide()
+			self.queue_free()
