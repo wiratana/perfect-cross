@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://808prb6f88kh"]
+
+[ext_resource type="Script" path="res://scene/world/object/box/box.gd" id="1_a8hep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eft83"]
+size = Vector2(38, 32)
+
+[node name="box" type="CharacterBody2D" groups=["obstacle"]]
+script = ExtResource("1_a8hep")
+health_decrease_value = 1
+knockback = Vector2(10, 10)
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(20, 23)
+shape = SubResource("RectangleShape2D_eft83")

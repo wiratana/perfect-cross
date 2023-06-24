@@ -7,6 +7,8 @@ radius = 7.0
 
 [node name="bullet" type="CharacterBody2D" groups=["bullets"]]
 script = ExtResource("1_rnw3g")
+health_decrease_value = 1
+knockback = Vector2(2, 2)
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = 8.0

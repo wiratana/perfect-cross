@@ -1,4 +1,4 @@
-class_name Bullet extends Node2D
+class_name Bullet extends ObjectEntity
 
 @export var speed = 100
 @onready var kill_timer:Timer = $KillTimer
