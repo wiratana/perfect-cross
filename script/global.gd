@@ -1,5 +1,6 @@
 class_name Global extends Node
 
+var current_state		  = 0
 var target_scene_for_load = ""
 var previous_scene        = ""
 var main_scene:Node2D	  = Node2D.new()
