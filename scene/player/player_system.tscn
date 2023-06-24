@@ -108,6 +108,31 @@ offset_right = 213.0
 offset_bottom = 182.0
 text = "Confirm"
 
+[node name="win_confirmation" type="Panel" parent="Marker2D/UI"]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 192.0
+offset_right = 317.0
+offset_bottom = 448.0
+theme = ExtResource("5_utoqa")
+
+[node name="win_text" type="TextEdit" parent="Marker2D/UI/win_confirmation"]
+layout_mode = 1
+offset_right = 287.0
+offset_bottom = 105.0
+theme = ExtResource("5_utoqa")
+wrap_mode = 1
+
+[node name="win_button" type="Button" parent="Marker2D/UI/win_confirmation"]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 124.0
+offset_right = 213.0
+offset_bottom = 182.0
+text = "Confirm"
+
 [connection signal="game_over" from="Player" to="Marker2D/UI" method="_on_player_game_over"]
+[connection signal="get_finish" from="Player" to="Marker2D/UI" method="_on_player_get_finish"]
 [connection signal="in_danger_area" from="Player" to="Marker2D/UI" method="_on_player_in_danger_area"]
 [connection signal="pressed" from="Marker2D/UI/pinalty_confirmation/pinalty_button" to="Marker2D/UI" method="_on_pinalty_button_pressed"]
+[connection signal="pressed" from="Marker2D/UI/win_confirmation/win_button" to="Marker2D/UI" method="_on_win_button_pressed"]

@@ -2,10 +2,12 @@ extends Control
 
 @export var player:Node2D
 @export var pinalty_confirmation_panel_size = 250
+@export var win_confirmation_panel_size     = 250
 @onready var police_alert = $police_alert/Police
 @onready var pinalty_confirmation = $pinalty_confirmation
 @onready var pc_text   = $pinalty_confirmation/pinalty_text
 @onready var pc_button = $pinalty_confirmation/pinalty_button
+@onready var win_confirmation = $win_confirmation
 @onready var pinalties = $pinalty
 @onready var health_bar = $health_bar
 @onready var survival_bar = $survival_bar
@@ -45,6 +47,20 @@ func setup_ui_pinalty_confirmation():
 	pc_button.position.x = ceil(pinalty_confirmation.size.x/2) - ceil(pc_button.size.x/2)
 	pc_button.position.y = ceil(pinalty_confirmation.size.y/2) + ceil(pc_button.size.y/2)
 
+func setup_ui_win_confirmation():
+	var win_text   = win_confirmation.get_node("win_text")
+	var win_button = win_confirmation.get_node("win_button")
+	win_confirmation.hide()
+	win_confirmation.position.x = ceil(get_viewport().get_visible_rect().size.x/2) - ceil(win_confirmation.size.x/2)
+	win_confirmation.position.y = ceil(get_viewport().get_visible_rect().size.y/2) - ceil(win_confirmation.size.y/2)
+	win_confirmation.size.x = win_confirmation_panel_size
+	win_confirmation.size.y = win_confirmation_panel_size
+	win_text.size.x = win_confirmation.size.x
+	win_text.size.y = ceil(win_confirmation.size.y/2)
+	win_text.add_theme_font_size_override("font_size", 16)
+	win_button.position.x = ceil(win_confirmation.size.x/2) - ceil(win_button.size.x/2)
+	win_button.position.y = ceil(win_confirmation.size.y/2) + ceil(win_button.size.y/2)
+
 func setup_ui_pinalty():
 	pinalties.get_children().map(func (a): a.hide())
 	
@@ -57,6 +73,7 @@ func refresh_pinalty():
 func _ready():
 	setup_ui_police_alert()
 	setup_ui_pinalty_confirmation()
+	setup_ui_win_confirmation()
 	setup_ui_pinalty()
 	setup_ui_health()
 	pass # Replace with function body.
@@ -104,3 +121,14 @@ func _on_player_game_over():
 	tween.tween_callback(func (): pinalty_confirmation.show()).set_delay(1)
 	player.disable_movement = true
 	refresh_pinalty()
+
+
+func _on_win_button_pressed():
+	global.goto_prev_screen(self.get_path())
+
+
+func _on_player_get_finish():
+	var tween = create_tween()
+	win_confirmation.get_node("win_text").text = "Selamat Kamu Mengantarkan Paket Dengan Selamat"
+	tween.tween_callback(func (): win_confirmation.show()).set_delay(1)
+	player.disable_movement = true

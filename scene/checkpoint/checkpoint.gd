@@ -24,3 +24,4 @@ func _on_start_point_area_body_exited(body):
 func _on_end_point_area_body_entered(body):
 	if body.is_in_group("player"):
 		emit_signal("get_finish")
+		body.get_finish.emit()

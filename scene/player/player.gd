@@ -4,6 +4,7 @@ class_name Player
 signal in_danger_area
 signal game_over
 signal shot
+signal get_finish
 
 enum STATE{IDLE, WALK, DASH, HIT}
 enum CONDITION{NORMAL, ENCOUNTER}
@@ -31,6 +32,8 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @onready var direction_arrow = $direction_arrow
 @export  var direction_arrow_target:Node
 @export  var direction_arrow_radius		= 40
+
+@onready var is_get_finish = false
 
 func _ready():
 	imune.wait_time = imune_duration
