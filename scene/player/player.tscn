@@ -69,5 +69,12 @@ one_shot = true
 [node name="imune" type="Timer" parent="."]
 one_shot = true
 
+[node name="direction_arrow" type="Node2D" parent="."]
+
+[node name="Panel" type="Panel" parent="direction_arrow"]
+offset_right = 5.0
+offset_bottom = 5.0
+metadata/_edit_use_anchors_ = true
+
 [connection signal="timeout" from="Dash/DashTimer" to="Dash" method="_on_dash_timer_timeout"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

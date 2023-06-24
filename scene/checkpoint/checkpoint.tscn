@@ -120,7 +120,7 @@ _data = {
 [node name="checkpoint" type="Node2D"]
 script = ExtResource("1_t3x1a")
 
-[node name="start_point" type="Marker2D" parent="."]
+[node name="start_point" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="start_point"]
 texture = ExtResource("2_p6d0x")
@@ -132,12 +132,7 @@ position = Vector2(0, 81)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ob2s0")
 
-[node name="VisibleOnScreenNotifier2D2" type="VisibleOnScreenNotifier2D" parent="start_point/start_point_area"]
-position = Vector2(1, 24)
-scale = Vector2(13.9, 13.4063)
-
-[node name="end_point" type="Marker2D" parent="."]
-position = Vector2(650, 0)
+[node name="end_point" type="Node2D" parent="."]
 
 [node name="Sprite2D" type="Sprite2D" parent="end_point"]
 texture = ExtResource("2_p6d0x")
@@ -149,18 +144,10 @@ position = Vector2(0, 81)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_ob2s0")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="end_point/end_point_area"]
-position = Vector2(2, 26)
-scale = Vector2(13.9006, 13.4806)
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_vcdiv")
 }
 
 [connection signal="body_exited" from="start_point/start_point_area" to="." method="_on_start_point_area_body_exited"]
-[connection signal="screen_entered" from="start_point/start_point_area/VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="start_point/start_point_area/VisibleOnScreenNotifier2D2" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="end_point/end_point_area" to="." method="_on_end_point_area_body_entered"]
-[connection signal="screen_entered" from="end_point/end_point_area/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="end_point/end_point_area/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

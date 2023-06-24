@@ -28,14 +28,21 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @onready var health  = -1
 @onready var pinalty = 0
 
+@onready var direction_arrow = $direction_arrow
+@export  var direction_arrow_target:Node
+@export  var direction_arrow_radius		= 40
 
 func _ready():
 	imune.wait_time = imune_duration
 	self.health		= self.max_health
+	direction_arrow.get_node("Panel").position.x = direction_arrow_radius
 
 func get_input():
 	var input_direction = Vector2.ZERO if disable_movement else Input.get_vector("left", "right", "up", "down")
 	var speed = move_speed
+	
+	if direction_arrow_target:
+		direction_arrow.look_at(direction_arrow_target.global_position)
 	
 	match current_state:
 		STATE.IDLE:

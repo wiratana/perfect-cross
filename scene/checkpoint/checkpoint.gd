@@ -8,24 +8,12 @@ signal get_finish
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if self.visible:
 		animation_player.play("aura_idle")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func _on_visible_on_screen_notifier_2d_screen_entered():
-	self.visible = true
-	animation_player.play("aura_idle")
-
-
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	self.visible = false
-	animation_player.stop()
-
 
 func _on_start_point_area_body_exited(body):
 	if body.is_in_group("player"):

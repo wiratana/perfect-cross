@@ -50,10 +50,10 @@ show_percentage = false
 
 [node name="survival_bar" type="ProgressBar" parent="Marker2D/UI"]
 layout_mode = 0
-offset_left = 448.0
-offset_top = 256.0
-offset_right = 1048.0
-offset_bottom = 286.0
+offset_left = 468.0
+offset_top = 223.0
+offset_right = 1068.0
+offset_bottom = 253.0
 theme = ExtResource("5_utoqa")
 show_percentage = false
 
