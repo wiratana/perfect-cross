@@ -33,7 +33,8 @@ enum CONDITION{NORMAL, ENCOUNTER}
 @export  var direction_arrow_target:Node
 @export  var direction_arrow_radius		= 40
 
-@onready var is_get_finish = false
+@onready var is_get_finish  = false
+@onready var is_still_fight = false
 
 func _ready():
 	imune.wait_time = imune_duration
@@ -88,6 +89,7 @@ func _physics_process(delta):
 	
 	if global.respawn_status:
 		self.disable_movement = false
+		self.is_still_fight   = false
 		global.was_respawn()
 		
 	if self.health == 0:

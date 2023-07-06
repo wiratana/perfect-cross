@@ -46,7 +46,7 @@ func make_path():
 func _on_viewing_distance_body_entered(body):
 	match current_state:
 		STATE.NORMAL:
-			if(body.is_in_group("player")):
+			if(body.is_in_group("player")  && !body.is_still_fight):
 				target = body
 				refresh.start()
 
@@ -71,7 +71,7 @@ func _on_refresh_timeout():
 func _on_hurtbox_body_entered(body):
 	match current_state:
 		STATE.NORMAL:
-			if(body.is_in_group("player")):
+			if(body.is_in_group("player")  && !body.is_still_fight):
 				refresh.stop()
 				target = null
 				
@@ -82,7 +82,7 @@ func _on_hurtbox_body_entered(body):
 				self.queue_free()
 		
 		STATE.ENCOUNTER:
-			if(body.is_in_group("player")):
+			if(body.is_in_group("player") && !body.is_still_fight):
 				refresh.stop()
 				encounter_target = null
 				emit_signal("is_dog_catch_player")

@@ -74,7 +74,7 @@ func make_path():
 func _on_viewing_distance_body_entered(body):
 	match encounter_state:
 		STATE.NORMAL:
-			if(body.is_in_group("player")):
+			if(body.is_in_group("player") && !body.is_still_fight):
 				target = body
 				hold.start()
 				
@@ -101,7 +101,7 @@ func _on_hold_timeout():
 			hold.start()
 
 func _on_hurtbox_body_entered(body):
-	if (body.is_in_group("player")):
+	if (body.is_in_group("player") && !body.is_still_fight):
 		is_time_to_rush = false
 		hold.stop()
 		emit_signal("is_criminal_catch_player")
