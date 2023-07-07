@@ -62,7 +62,8 @@ position = Vector2(848, 83)
 
 [node name="player_system" parent="." instance=ExtResource("6_so2p0")]
 
-[node name="Player" parent="player_system" index="0" node_paths=PackedStringArray("direction_arrow_target")]
+[node name="Player" parent="player_system" index="0" node_paths=PackedStringArray("map", "direction_arrow_target")]
+map = NodePath("../../TileMap")
 direction_arrow_target = NodePath("../../checkpoint/end_point")
 
 [node name="box" parent="." instance=ExtResource("6_8a6vb")]

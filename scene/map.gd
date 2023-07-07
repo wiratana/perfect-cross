@@ -13,7 +13,7 @@ func _ready():
 	global.get_encounter_camera().enabled = false
 	global.get_normal_camera().enabled = true
 	global.set_main_player(player)
-	player_system.player.map = map
+	#player_system.player.map = map
 	
 	var start_point   = checkpoint.get_node("start_point")
 	var finish_point  = checkpoint.get_node("end_point")
