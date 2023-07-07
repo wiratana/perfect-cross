@@ -35,11 +35,39 @@ enum CONDITION{NORMAL, ENCOUNTER}
 
 @onready var is_get_finish  = false
 @onready var is_still_fight = false
+@onready var animation_tree = $AnimationTree
 
 func _ready():
 	imune.wait_time = imune_duration
 	self.health		= self.max_health
-	direction_arrow.get_node("Panel").position.x = direction_arrow_radius
+	direction_arrow.get_node("Sprite2D").position.x = self.get_node("Sprite2D").texture.get_size().y
+			
+func animation():
+	match current_state:
+		STATE.IDLE:
+			animation_tree["parameters/conditions/idle"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+			animation_tree["parameters/conditions/is_dash"] = false
+			animation_tree["parameters/conditions/is_knock"] = false
+		STATE.HIT:
+			animation_tree["parameters/conditions/is_knock"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+			animation_tree["parameters/conditions/is_dash"] = false
+		STATE.WALK:
+			animation_tree["parameters/conditions/is_walk"] = true
+			animation_tree["parameters/conditions/idle"] = false
+		STATE.DASH:
+			animation_tree["parameters/conditions/is_dash"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+	
+	var direction = Input.get_vector("left", "right", "up", "down")
+	animation_tree["parameters/idle/blend_position"]	= direction
+	animation_tree["parameters/dash/blend_position"]	= direction
+	animation_tree["parameters/knock/blend_position"]	= direction
+	animation_tree["parameters/walk/blend_position"]	= direction
+	
+	if(direction != Vector2.ZERO):
+		print(direction)
 
 func get_input():
 	var input_direction = Vector2.ZERO if disable_movement else Input.get_vector("left", "right", "up", "down")
@@ -60,8 +88,6 @@ func get_input():
 			if Input.is_action_pressed("dash") && dash.is_delay_stop():
 				current_state = STATE.DASH
 				dash.start_dash()
-			
-			speed = move_speed
 				
 		STATE.DASH:
 			if input_direction != Vector2.ZERO:
@@ -75,7 +101,7 @@ func get_input():
 			
 			if knockback.is_stunt_stop():
 				current_state = STATE.IDLE
-	
+		
 	velocity = input_direction * speed
 	
 func set_label():
@@ -83,6 +109,7 @@ func set_label():
 	pinalty_status.text = "pinalty : " + str(self.pinalty) 
 
 func _physics_process(delta):
+	self.animation()
 	self.get_input()
 	self.move_and_slide()
 	self.set_label()
