@@ -11,7 +11,9 @@ signal is_dog_catch_player
 @onready var nav_agent = $NavigationAgent2D
 @onready var refresh   = $refresh
 @onready var encounter = load("res://scene/world/mobs/animal/dog/encounter/encounter.tscn").instantiate()
- 
+@onready var animation_tree = $AnimationTree 
+@onready var last_direction = Vector2.ZERO
+
 var target:Node2D
 
 func _ready():
@@ -24,14 +26,30 @@ func _physics_process(delta):
 		STATE.NORMAL:
 			if target != null:
 				var direction = to_local(nav_agent.get_next_path_position()).normalized()
+				self.last_direction = direction
 				velocity = direction * speed
 				move_and_slide()
+				animation_tree["parameters/conditions/is_run"] = true
+				animation_tree["parameters/conditions/idle"]   = false
+			else:
+				animation_tree["parameters/conditions/is_run"] = false
+				animation_tree["parameters/conditions/idle"]   = true
+			animation_tree["parameters/run/blend_position"]  = self.last_direction
+			animation_tree["parameters/run/blend_position"]  = self.last_direction
 				
 		STATE.ENCOUNTER:
 			if encounter_target != null:
 				var direction = to_local(nav_agent.get_next_path_position()).normalized()
+				self.last_direction = direction
 				velocity = direction * speed
 				move_and_slide()
+				animation_tree["parameters/conditions/is_run"] = true
+				animation_tree["parameters/conditions/idle"]   = false
+			else:
+				animation_tree["parameters/conditions/is_run"] = false
+				animation_tree["parameters/conditions/idle"]   = true
+			animation_tree["parameters/run/blend_position"]  = self.last_direction
+			animation_tree["parameters/run/blend_position"]  = self.last_direction
 
 func make_path():
 	match current_state:
