@@ -13,5 +13,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
+	self.get_node("Sprite2D").frame = 1 if padestrian_stop_status else 0
+	self.get_node("Sprite2D2").frame = 1 if padestrian_stop_status else 0
 	label.text = "p : {pss}  v : {vss}".format({"pss":padestrian_stop_status, "vss":vehicle_stop_status})
