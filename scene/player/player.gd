@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name Player
 
 signal in_danger_area
+signal break_the_rule
 signal game_over
 signal shot
 signal get_finish
@@ -40,37 +41,14 @@ enum CONDITION{NORMAL, ENCOUNTER}
 func _ready():
 	imune.wait_time = imune_duration
 	self.health		= self.max_health
-	direction_arrow.get_node("Sprite2D").position.x = self.get_node("Sprite2D").texture.get_size().y
-			
-func animation():
-	match current_state:
-		STATE.IDLE:
-			animation_tree["parameters/conditions/idle"] = true
-			animation_tree["parameters/conditions/is_walk"] = false
-			animation_tree["parameters/conditions/is_dash"] = false
-			animation_tree["parameters/conditions/is_knock"] = false
-		STATE.HIT:
-			animation_tree["parameters/conditions/is_knock"] = true
-			animation_tree["parameters/conditions/is_walk"] = false
-			animation_tree["parameters/conditions/is_dash"] = false
-		STATE.WALK:
-			animation_tree["parameters/conditions/is_walk"] = true
-			animation_tree["parameters/conditions/idle"] = false
-		STATE.DASH:
-			animation_tree["parameters/conditions/is_dash"] = true
-			animation_tree["parameters/conditions/is_walk"] = false
-	
-	var direction = Input.get_vector("left", "right", "up", "down")
-	animation_tree["parameters/idle/blend_position"]	= direction
-	animation_tree["parameters/dash/blend_position"]	= direction
-	animation_tree["parameters/knock/blend_position"]	= direction
-	animation_tree["parameters/walk/blend_position"]	= direction
-	
-	if(direction != Vector2.ZERO):
-		print(direction)
+	direction_arrow.get_node("Sprite2D").position.x = self.get_node("Sprite2D").texture.get_size().y	
 
 func get_input():
 	var input_direction = Vector2.ZERO if disable_movement else Input.get_vector("left", "right", "up", "down")
+	animation_tree["parameters/idle/blend_position"]	= input_direction
+	animation_tree["parameters/dash/blend_position"]	= input_direction
+	animation_tree["parameters/knock/blend_position"]	= input_direction
+	animation_tree["parameters/walk/blend_position"]	= input_direction
 	var speed = move_speed
 	
 	if direction_arrow_target:
@@ -78,18 +56,34 @@ func get_input():
 	
 	match current_state:
 		STATE.IDLE:
+			animation_tree["parameters/conditions/idle"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+			animation_tree["parameters/conditions/is_dash"] = false
+			animation_tree["parameters/conditions/is_knock"] = false
+			SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
+			
 			if input_direction != Vector2.ZERO:
 				current_state = STATE.WALK
+				SoundPlayer.play_sfx(SoundPlayer.SOUND.WALK)
 				
 		STATE.WALK:
+			animation_tree["parameters/conditions/is_walk"] = true
+			animation_tree["parameters/conditions/idle"] = false
+			
 			if input_direction == Vector2.ZERO:
 				current_state = STATE.IDLE
+				SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
 			
 			if Input.is_action_pressed("dash") && dash.is_delay_stop():
 				current_state = STATE.DASH
 				dash.start_dash()
 				
 		STATE.DASH:
+			animation_tree["parameters/conditions/is_dash"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+			animation_tree["parameters/conditions/idle"] = false
+			SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
+			
 			if input_direction != Vector2.ZERO:
 				speed = dash_speed
 					
@@ -97,6 +91,12 @@ func get_input():
 					current_state = STATE.IDLE
 			
 		STATE.HIT:
+			animation_tree["parameters/conditions/is_knock"] = true
+			animation_tree["parameters/conditions/is_walk"] = false
+			animation_tree["parameters/conditions/is_dash"] = false
+			animation_tree["parameters/conditions/idle"] = false
+			SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
+			
 			input_direction = Vector2.ZERO
 			
 			if knockback.is_stunt_stop():
@@ -108,8 +108,7 @@ func set_label():
 	health_status.text  = "health : "  + str(self.health)
 	pinalty_status.text = "pinalty : " + str(self.pinalty) 
 
-func _physics_process(delta):
-	self.animation()
+func _physics_process(_delta):
 	self.get_input()
 	self.move_and_slide()
 	self.set_label()
@@ -156,6 +155,7 @@ func _on_hurtbox_body_entered(body):
 func process_impact(effect):
 	if effect.attribute == "health_decrease":
 		self.health    -= effect.value
+		SoundPlayer.play_sfx(SoundPlayer.SOUND.HIT)
 		knockback.apply(effect.knockback)
 	if effect.attribute == "health_increase":
 		self.health += effect.value
@@ -163,3 +163,16 @@ func process_impact(effect):
 		self.pinalty -= effect.value
 	if effect.attribute == "pinalty_increase":
 		self.pinalty += effect.value
+
+
+func _on_hurtbox_area_entered(area):
+	if area.is_in_group("traffic_light_system"):
+		if area.padestrian_stop_status && imune.is_stopped():
+			self.disable_movement  = true
+			self.pinalty += 1
+			
+			if self.pinalty < self.max_pinalty:
+				break_the_rule.emit()
+			
+			if pinalty == max_pinalty:
+				emit_signal("game_over")

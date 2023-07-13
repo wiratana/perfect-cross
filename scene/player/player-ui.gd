@@ -79,7 +79,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	health_bar.value = player.health
 
 func _on_player_in_danger_area():
@@ -91,12 +91,14 @@ func _on_player_in_danger_area():
 		Vector2((ceil(get_viewport().get_visible_rect().size.x/2) - ceil((police_alert.texture.get_size().x*police_alert.scale.x)/2)), 0),
 		0.2
 	)
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.WHISTLE)
 	pc_text.text = "Kamu Melanggar Lalu lintas dengan Tidak Menyebrang difasilitas penyebrangan"
 	tween.tween_callback(func (): pinalty_confirmation.show()).set_delay(1)
 
 
 func _on_pinalty_button_pressed():
-	if player.health == 0 || player.pinalty == player.max_pinalty:
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
+	if player.health == 0 || player.pinalty >= player.max_pinalty:
 		global.goto_prev_screen(self.get_path())
 	
 	pinalty_confirmation.hide()
@@ -124,6 +126,8 @@ func _on_player_game_over():
 
 
 func _on_win_button_pressed():
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
+	SoundPlayer.peace_music()
 	global.goto_prev_screen(self.get_path())
 
 
@@ -132,3 +136,16 @@ func _on_player_get_finish():
 	win_confirmation.get_node("win_text").text = "Selamat Kamu Mengantarkan Paket Dengan Selamat"
 	tween.tween_callback(func (): win_confirmation.show()).set_delay(1)
 	player.disable_movement = true
+
+
+func _on_player_break_the_rule():
+	var tween = create_tween()
+	police_alert.show()
+	tween.tween_property(
+		police_alert, 
+		"position", 
+		Vector2((ceil(get_viewport().get_visible_rect().size.x/2) - ceil((police_alert.texture.get_size().x*police_alert.scale.x)/2)), 0),
+		0.2
+	)
+	pc_text.text = "Kamu Melanggar Lalu lintas dengan Tidak Menaati Rambu Lalu Lintas"
+	tween.tween_callback(func (): pinalty_confirmation.show()).set_delay(1)

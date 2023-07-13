@@ -130,6 +130,7 @@ offset_right = 213.0
 offset_bottom = 182.0
 text = "Confirm"
 
+[connection signal="break_the_rule" from="Player" to="Marker2D/UI" method="_on_player_break_the_rule"]
 [connection signal="game_over" from="Player" to="Marker2D/UI" method="_on_player_game_over"]
 [connection signal="get_finish" from="Player" to="Marker2D/UI" method="_on_player_get_finish"]
 [connection signal="in_danger_area" from="Player" to="Marker2D/UI" method="_on_player_in_danger_area"]

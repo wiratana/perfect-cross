@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://cjbrx20evdha"]
+[gd_scene load_steps=54 format=3 uid="uid://cjbrx20evdha"]
 
 [ext_resource type="Script" path="res://scene/player/player.gd" id="1_nkbru"]
 [ext_resource type="Texture2D" uid="uid://dcdj4axvjoo75" path="res://assets/animation/player.png" id="2_b7hr7"]
@@ -10,7 +10,7 @@
 size = Vector2(50, 10)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_amned"]
-size = Vector2(54.5, 10)
+size = Vector2(54.5, 12)
 
 [sub_resource type="Animation" id="Animation_rx0au"]
 length = 0.001
@@ -45,7 +45,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_j2dnd"]
 resource_name = "dash-l"
-length = 0.4
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -61,7 +61,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_xa6pt"]
 resource_name = "dash-r"
-length = 0.4
+length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -69,10 +69,10 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [3, 4, 5, 0]
+"values": [3, 4, 5]
 }
 
 [sub_resource type="Animation" id="Animation_xncun"]
@@ -422,22 +422,22 @@ states/walk/position = Vector2(617, 62)
 transitions = ["idle", "walk", SubResource("AnimationNodeStateMachineTransition_1xn6f"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_r4n1p"), "walk", "dash", SubResource("AnimationNodeStateMachineTransition_54qob"), "dash", "knock", SubResource("AnimationNodeStateMachineTransition_wi2kw"), "knock", "idle", SubResource("AnimationNodeStateMachineTransition_r1t4r"), "walk", "knock", SubResource("AnimationNodeStateMachineTransition_inc7p"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_10jgb"), "dash", "walk", SubResource("AnimationNodeStateMachineTransition_qp6qn"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_xo3ow")]
 graph_offset = Vector2(-54.8142, 0)
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_ry83y"]
-
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 position = Vector2(21, 20)
 script = ExtResource("1_nkbru")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -44)
 texture = ExtResource("2_b7hr7")
 hframes = 60
 frame = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 59)
+position = Vector2(1, 15)
 shape = SubResource("RectangleShape2D_yqkd0")
 
 [node name="Dash" type="Node2D" parent="."]
+position = Vector2(1, -44)
 script = ExtResource("2_i2jxw")
 dash_duration = 0.5
 
@@ -448,6 +448,7 @@ one_shot = true
 one_shot = true
 
 [node name="hurtbox" type="Area2D" parent="."]
+position = Vector2(1, -44)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(-0.25, 59)
@@ -476,6 +477,7 @@ offset_right = 38.0
 offset_bottom = -10.0
 
 [node name="Knockback" type="Node2D" parent="."]
+position = Vector2(1, -44)
 script = ExtResource("4_axiox")
 
 [node name="StuntTimer" type="Timer" parent="Knockback"]
@@ -485,6 +487,7 @@ one_shot = true
 one_shot = true
 
 [node name="direction_arrow" type="Node2D" parent="."]
+position = Vector2(1, -44)
 
 [node name="Sprite2D" type="Sprite2D" parent="direction_arrow"]
 rotation = 1.5708
@@ -500,7 +503,6 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_clw5u")
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/playback = SubResource("AnimationNodeStateMachinePlayback_ry83y")
 parameters/conditions/idle = false
 parameters/conditions/is_dash = false
 parameters/conditions/is_knock = false
@@ -511,4 +513,5 @@ parameters/knock/blend_position = Vector2(-0.92976, 0.731138)
 parameters/walk/blend_position = Vector2(0, 1.2441)
 
 [connection signal="timeout" from="Dash/DashTimer" to="Dash" method="_on_dash_timer_timeout"]
+[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
