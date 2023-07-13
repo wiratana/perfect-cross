@@ -36,7 +36,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !encounter_timer.is_stopped() && !reset_progress:	
 		encounter_progress.value = encounter_timer.wait_time - encounter_timer.time_left
 
@@ -47,6 +47,8 @@ func _on_criminal_is_maximum_number_of_arrests():
 	player_system.queue_free()
 	var tween = create_tween()
 	tween.tween_callback(func(): after_match.show()).set_delay(1)
+	SoundPlayer.peace_music()
+	SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
 	pass
 
 
@@ -69,6 +71,8 @@ func _on_player_shot():
 		angry.queue_free()
 		player_system.queue_free()
 		var tween = create_tween()
+		for bullet in get_tree().get_nodes_in_group("bullets"):
+			bullet.queue_free()
 		tween.tween_callback(func(): after_match.show()).set_delay(1)
 		pass
 	else:
