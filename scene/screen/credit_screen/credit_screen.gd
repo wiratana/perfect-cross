@@ -15,7 +15,7 @@ func _ready():
 	back_button.position.x = ceil(back_button.size.x*back_button.scale.x)/4
 	back_button.position.y = ceil(back_button.size.y*back_button.scale.y)/4
 	
-	text.text		= "this is dummy text"
+	text.text		= "Philodoxia GEMASTIK 16 2023"
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -23,4 +23,5 @@ func _process(delta):
 		global.goto_prev_screen(self.get_path())
 
 func _on_back_button_pressed():
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
 	global.goto_prev_screen(self.get_path())

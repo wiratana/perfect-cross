@@ -12,20 +12,23 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 
 func _on_start_btn_pressed():
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
 	global.goto_target_screen(
 		"res://scene/map.tscn", 
 		"res://scene/screen/home_screen/home_screen.tscn")
 
 func _on_credit_btn_pressed():
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
 	global.goto_target_screen(
 		"res://scene/screen/credit_screen/credit_screen.tscn", 
 		"res://scene/screen/home_screen/home_screen.tscn")
 
 
 func _on_exit_btn_pressed():
+	SoundPlayer.play_sfx(SoundPlayer.SOUND.CLICK)
 	get_tree().quit()
