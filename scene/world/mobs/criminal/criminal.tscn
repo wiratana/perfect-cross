@@ -1,26 +1,292 @@
-[gd_scene load_steps=5 format=3 uid="uid://0iy482q4dmyn"]
+[gd_scene load_steps=22 format=3 uid="uid://0iy482q4dmyn"]
 
 [ext_resource type="Script" path="res://scene/world/mobs/criminal/criminal.gd" id="1_evgrv"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_um13u"]
-size = Vector2(40, 20)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqds8"]
-size = Vector2(42, 22)
+[ext_resource type="Theme" uid="uid://2fiw1auuiywe" path="res://theme/universal-ui.tres" id="2_n10sm"]
+[ext_resource type="Texture2D" uid="uid://dta5vcx6nnkea" path="res://assets/animation/criminal.png" id="2_y1j65"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_280po"]
 radius = 227.554
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_um13u"]
+size = Vector2(38.25, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vqds8"]
+size = Vector2(56.875, 29)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ak577"]
+animation = &"dash-l"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4klve"]
+animation = &"dash-r"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oi66t"]
+animation = &"dash-l"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f5e0a"]
+animation = &"dash-r"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_fe3ps"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_ak577")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_4klve")
+blend_point_1/pos = Vector2(1, 0.1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_oi66t")
+blend_point_2/pos = Vector2(0, 1.1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_f5e0a")
+blend_point_3/pos = Vector2(0, -1)
+min_space = Vector2(-1, -1.1)
+max_space = Vector2(1, 1.1)
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_xi46c"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2sw7d"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5osdp"]
+advance_mode = 2
+advance_condition = &"is_dash"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_porug"]
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_w8qsi"]
+states/dash/node = SubResource("AnimationNodeBlendSpace2D_fe3ps")
+states/dash/position = Vector2(575, 100)
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_xi46c")
+states/idle/position = Vector2(351, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_2sw7d"), "idle", "dash", SubResource("AnimationNodeStateMachineTransition_5osdp"), "dash", "idle", SubResource("AnimationNodeStateMachineTransition_porug")]
+
+[sub_resource type="Animation" id="Animation_o8mv7"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.5, 59.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hurtbox/CollisionShape2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 60)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ymm1f"]
+resource_name = "dash-l"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.5, 30)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hurtbox/CollisionShape2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 34)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_f8af4"]
+resource_name = "dash-r"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("hurtbox/CollisionShape2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1.5, 30)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("hurtbox/CollisionShape2D:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 34)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_agaq7"]
+resource_name = "idle"
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_uo3bq"]
+_data = {
+"RESET": SubResource("Animation_o8mv7"),
+"dash-l": SubResource("Animation_ymm1f"),
+"dash-r": SubResource("Animation_f8af4"),
+"idle": SubResource("Animation_agaq7")
+}
+
 [node name="criminal" type="CharacterBody2D"]
 script = ExtResource("1_evgrv")
 
-[node name="Panel" type="ColorRect" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-color = Color(1, 0.2, 0, 1)
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(24, 24)
+
+[node name="viewing_distance" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="viewing_distance"]
+shape = SubResource("CircleShape2D_280po")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(20, 30)
+position = Vector2(-1, 60)
 shape = SubResource("RectangleShape2D_um13u")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
@@ -29,20 +295,15 @@ debug_enabled = true
 [node name="hurtbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(20, 30)
+position = Vector2(-1.5, 59.5)
 shape = SubResource("RectangleShape2D_vqds8")
 
-[node name="viewing_distance" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="viewing_distance"]
-position = Vector2(20, 30)
-shape = SubResource("CircleShape2D_280po")
-
 [node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -14.0
-offset_top = -30.0
-offset_right = 52.0
-offset_bottom = -3.0
+offset_left = -30.0
+offset_top = -82.0
+offset_right = 30.0
+offset_bottom = -72.0
+theme = ExtResource("2_n10sm")
 max_value = 3.0
 value = 3.0
 show_percentage = false
@@ -51,17 +312,41 @@ show_percentage = false
 one_shot = true
 
 [node name="Label" type="Label" parent="."]
-offset_left = -11.0
-offset_top = -58.0
-offset_right = 52.0
-offset_bottom = -32.0
+visible = false
+offset_left = -30.0
+offset_top = -88.0
+offset_right = 33.0
+offset_bottom = -62.0
 text = "criminal"
 
 [node name="refresh" type="Timer" parent="."]
 
-[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
-[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_y1j65")
+hframes = 3
+frame = 2
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_w8qsi")
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/conditions/idle = false
+parameters/conditions/is_dash = false
+parameters/dash/blend_position = Vector2(0, 0)
+parameters/idle/blend_position = Vector2(0, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_uo3bq")
+}
+
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="viewing_distance" to="." method="_on_viewing_distance_body_entered"]
 [connection signal="body_exited" from="viewing_distance" to="." method="_on_viewing_distance_body_exited"]
+[connection signal="link_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_link_reached"]
+[connection signal="navigation_finished" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_navigation_finished"]
+[connection signal="waypoint_reached" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_waypoint_reached"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="timeout" from="hold" to="." method="_on_hold_timeout"]
 [connection signal="timeout" from="refresh" to="." method="_on_refresh_timeout"]
