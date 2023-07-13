@@ -14,8 +14,6 @@ enum Test{
 @export var pinalty_increase_value:int
 @export var knockback:Vector2
 
-@onready var label = $Label 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass
@@ -41,5 +39,5 @@ func give_impact():
 	return data
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
