@@ -12,12 +12,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _on_start_point_area_body_exited(body):
 	if body.is_in_group("player"):
-		start_point.queue_free()
+		start_point.hide()
 		
 
 
