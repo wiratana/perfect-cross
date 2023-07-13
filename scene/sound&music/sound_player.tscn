@@ -1,0 +1,58 @@
+[gd_scene load_steps=11 format=3 uid="uid://klf3xyihrp3s"]
+
+[ext_resource type="Script" path="res://scene/sound&music/sound_player.gd" id="1_j2k8h"]
+[ext_resource type="AudioStream" uid="uid://nymcq0mtdi1o" path="res://assets/wav/whistle.wav" id="2_hm2g6"]
+[ext_resource type="AudioStream" uid="uid://c3mg4qiljsnt5" path="res://assets/wav/walk.wav" id="3_vk55r"]
+[ext_resource type="AudioStream" uid="uid://dfmvg7ds1u75" path="res://assets/wav/dog.wav" id="4_37vmu"]
+[ext_resource type="AudioStream" uid="uid://ns5e3xporjmy" path="res://assets/wav/vehicle.wav" id="5_8cw62"]
+[ext_resource type="AudioStream" uid="uid://b3eajw8hpghkf" path="res://assets/wav/bgm-n.wav" id="5_q6jw4"]
+[ext_resource type="AudioStream" uid="uid://bpbugc8wd4b7g" path="res://assets/wav/bgm-d4.wav" id="6_hoppv"]
+[ext_resource type="AudioStream" uid="uid://c81hud0mubhur" path="res://assets/wav/criminal.wav" id="6_ypa4i"]
+[ext_resource type="AudioStream" uid="uid://c35b2q4w6726m" path="res://assets/wav/hit.wav" id="7_2dca5"]
+[ext_resource type="AudioStream" uid="uid://bd6yjokm535bs" path="res://assets/wav/click.wav" id="8_mwv26"]
+
+[node name="SoundPlayer" type="Node2D"]
+script = ExtResource("1_j2k8h")
+
+[node name="AudioPlayers" type="Node2D" parent="."]
+
+[node name="whistle" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("2_hm2g6")
+bus = &"sfx"
+
+[node name="walk" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("3_vk55r")
+bus = &"sfx"
+
+[node name="dog" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("4_37vmu")
+bus = &"sfx"
+
+[node name="vehicle" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("5_8cw62")
+bus = &"sfx"
+
+[node name="criminal" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("6_ypa4i")
+
+[node name="hit" type="AudioStreamPlayer" parent="AudioPlayers"]
+stream = ExtResource("7_2dca5")
+
+[node name="click" type="AudioStreamPlayer2D" parent="AudioPlayers"]
+stream = ExtResource("8_mwv26")
+
+[node name="MusicPlayers" type="Node2D" parent="."]
+
+[node name="bgm-n" type="AudioStreamPlayer" parent="MusicPlayers"]
+stream = ExtResource("5_q6jw4")
+autoplay = true
+bus = &"bgm"
+
+[node name="bgm-d" type="AudioStreamPlayer" parent="MusicPlayers"]
+stream = ExtResource("6_hoppv")
+
+[node name="AtmospherePlayers" type="Node2D" parent="."]
+
+[node name="calm" type="AudioStreamPlayer" parent="AtmospherePlayers"]
+
+[node name="noise" type="AudioStreamPlayer" parent="AtmospherePlayers"]
