@@ -1,9 +1,9 @@
 extends Node2D
 
 @onready var map = $TileMap
-@onready var player_system = $player_system
-@onready var checkpoint = $checkpoint
-@onready var ccg = $ccg
+@onready var player_system = $entity/player_system
+@onready var checkpoint = $entity/checkpoint
+@onready var ccg = $entity/ccg
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,7 +22,7 @@ func _ready():
 	player.global_position = ccg.start_point.position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		global.goto_prev_screen(self.get_path())
 
