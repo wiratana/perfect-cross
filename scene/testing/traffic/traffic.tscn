@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://n5sumcbq77hf"]
+
+[ext_resource type="PackedScene" uid="uid://bqamb6x2jurlo" path="res://scene/player/player_system.tscn" id="1_uascg"]
+[ext_resource type="PackedScene" uid="uid://buqk5q2ynq0ss" path="res://scene/world/traffic_light/traffic_light_system.tscn" id="2_v2mwx"]
+
+[node name="traffic" type="Node2D"]
+
+[node name="player_system" parent="." instance=ExtResource("1_uascg")]
+
+[node name="traffic_light_system" parent="." instance=ExtResource("2_v2mwx")]

@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://oht4npfos8ex"]
+
+[ext_resource type="PackedScene" uid="uid://b5qvws6amnajl" path="res://scene/world/mobs/padestrian/padestrian.tscn" id="1_mnyct"]
+[ext_resource type="PackedScene" uid="uid://bqamb6x2jurlo" path="res://scene/player/player_system.tscn" id="2_k7lvd"]
+[ext_resource type="PackedScene" uid="uid://0iy482q4dmyn" path="res://scene/world/mobs/criminal/criminal.tscn" id="3_8hqi6"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_thyfi"]
+vertices = PackedVector2Array(-593, -426, 1023, -493, 1311, 297, 985, 647, -486, 655, -763, 270)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4, 5)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-593, -426, 1023, -493, 1311, 297, 985, 647, -486, 655, -763, 270)])
+
+[node name="ysort" type="Node2D"]
+y_sort_enabled = true
+
+[node name="Node2D" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="padestrian" parent="Node2D" instance=ExtResource("1_mnyct")]
+position = Vector2(497, 211)
+
+[node name="player_system" parent="." instance=ExtResource("2_k7lvd")]
+y_sort_enabled = true
+
+[node name="Player" parent="player_system" index="0"]
+y_sort_enabled = true
+
+[node name="criminal" parent="." instance=ExtResource("3_8hqi6")]
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_thyfi")
+
+[editable path="player_system"]
