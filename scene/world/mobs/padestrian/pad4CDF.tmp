@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b5qvws6amnajl"]
+[gd_scene load_steps=28 format=3 uid="uid://b5qvws6amnajl"]
 
 [ext_resource type="Script" path="res://scene/world/mobs/padestrian/padestrian.gd" id="1_5jfjw"]
 [ext_resource type="Texture2D" uid="uid://1i8rq228il4m" path="res://assets/animation/padestrian.png" id="2_xkcu1"]
@@ -14,8 +14,27 @@ size = Vector2(31, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_q8e1k"]
 size = Vector2(35, 22)
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hromh"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uesqd"]
 animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ewbu"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pntbi"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2uns6"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_omsmo"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_uesqd")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_6ewbu")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_2/node = SubResource("AnimationNodeAnimation_pntbi")
+blend_point_2/pos = Vector2(1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_2uns6")
+blend_point_3/pos = Vector2(0, -1)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_641ed"]
 animation = &"walk-l"
@@ -41,24 +60,23 @@ blend_point_3/pos = Vector2(0, 1.1)
 min_space = Vector2(-1, -1.1)
 max_space = Vector2(1, 1.1)
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r45yn"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_c2egi"]
 advance_mode = 2
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_uq3qw"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h0lrv"]
 advance_mode = 2
 advance_condition = &"is_walk"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gmdf8"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_igxri"]
 advance_mode = 2
 advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_3363i"]
-states/Start/position = Vector2(191, 100)
-states/idle/node = SubResource("AnimationNodeAnimation_hromh")
-states/idle/position = Vector2(361, 100)
+states/idle/node = SubResource("AnimationNodeBlendSpace2D_omsmo")
+states/idle/position = Vector2(365, 100)
 states/walk/node = SubResource("AnimationNodeBlendSpace2D_wl22q")
 states/walk/position = Vector2(534, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_r45yn"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_uq3qw"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_gmdf8")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_c2egi"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_h0lrv"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_igxri")]
 
 [sub_resource type="Animation" id="Animation_g0yv3"]
 length = 0.001
@@ -458,7 +476,6 @@ _data = {
 }
 
 [node name="padestrian" type="CharacterBody2D" groups=["padestrian"]]
-y_sort_enabled = true
 position = Vector2(26, 10)
 script = ExtResource("1_5jfjw")
 
@@ -502,8 +519,9 @@ tree_root = SubResource("AnimationNodeStateMachine_3363i")
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/conditions/idle = false
-parameters/conditions/is_walk = true
-parameters/walk/blend_position = Vector2(0.0406654, 2.1952)
+parameters/conditions/is_walk = false
+parameters/idle/blend_position = Vector2(0, 0)
+parameters/walk/blend_position = Vector2(0, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -511,15 +529,12 @@ libraries = {
 }
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-scale = Vector2(4.1, 9.9)
+scale = Vector2(31.4, 30.1)
 
-[connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="area_entered" from="end_of_vision" to="." method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="end_of_vision" to="." method="_on_area_2d_area_exited"]
 [connection signal="body_entered" from="entity_detector" to="." method="_on_entity_detector_body_entered"]
 [connection signal="body_exited" from="entity_detector" to="." method="_on_entity_detector_body_exited"]
-[connection signal="area_entered" from="hurtbox" to="." method="_on_hurtbox_area_entered"]
-[connection signal="area_exited" from="hurtbox" to="." method="_on_hurtbox_area_exited"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
