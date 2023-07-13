@@ -2,8 +2,10 @@ extends Path2D
 class_name Route
 
 enum Entity{Padestrian, Vehicle, Animal, Criminal}
+enum DIRECTION{LEFT, RIGHT, UP, BUTTOM}
 
 @export var belong_to:Entity
+@export var direction:DIRECTION
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,5 +13,5 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass
