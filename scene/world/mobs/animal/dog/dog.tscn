@@ -3,14 +3,14 @@
 [ext_resource type="Script" path="res://scene/world/mobs/animal/dog/dog.gd" id="1_7tocy"]
 [ext_resource type="Texture2D" uid="uid://duortgpyucr42" path="res://assets/animation/dog.png" id="2_4c7a5"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_7oi6l"]
-size = Vector2(32, 13)
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_v43ob"]
 radius = 315.102
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_14fnm"]
-size = Vector2(34, 15)
+size = Vector2(63, 19)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7oi6l"]
+size = Vector2(55, 13)
 
 [sub_resource type="Animation" id="Animation_leu3f"]
 length = 0.001
@@ -172,16 +172,17 @@ states/run/position = Vector2(590, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_diinp"), "idle", "run", SubResource("AnimationNodeStateMachineTransition_qxnoj"), "run", "idle", SubResource("AnimationNodeStateMachineTransition_qjy0c")]
 
 [node name="dog" type="CharacterBody2D" groups=["enemy"]]
+y_sort_enabled = true
 script = ExtResource("1_7tocy")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(-3.43323e-05, -0.500014)
+scale = Vector2(32, 32.05)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_4c7a5")
 hframes = 20
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(16, 25.5)
-shape = SubResource("RectangleShape2D_7oi6l")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 debug_enabled = true
@@ -189,13 +190,13 @@ debug_enabled = true
 [node name="viewing_distance" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="viewing_distance"]
-position = Vector2(10, -8)
 shape = SubResource("CircleShape2D_v43ob")
 
 [node name="refresh" type="Timer" parent="."]
 wait_time = 0.5
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -4.0
 offset_top = -30.0
 offset_right = 36.0
@@ -205,8 +206,12 @@ text = "Dog"
 [node name="hurtbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
-position = Vector2(16, 25.5)
+position = Vector2(-1.5, 17.5)
 shape = SubResource("RectangleShape2D_14fnm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 18)
+shape = SubResource("RectangleShape2D_7oi6l")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -222,6 +227,8 @@ parameters/conditions/is_run = false
 parameters/idle/blend_position = Vector2(0, 0.00658679)
 parameters/run/blend_position = Vector2(0, 0)
 
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="body_entered" from="viewing_distance" to="." method="_on_viewing_distance_body_entered"]
 [connection signal="body_exited" from="viewing_distance" to="." method="_on_viewing_distance_body_exited"]
 [connection signal="timeout" from="refresh" to="." method="_on_refresh_timeout"]

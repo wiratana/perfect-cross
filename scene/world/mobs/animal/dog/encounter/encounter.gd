@@ -38,7 +38,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !encounter_timer.is_stopped() && !reset_progress:	
 		encounter_progress.value = encounter_timer.wait_time - encounter_timer.time_left
 
@@ -62,4 +62,7 @@ func _on_dog_is_dog_catch_player():
 	player_system.queue_free()
 	var tween = create_tween()
 	tween.tween_callback(func(): after_match.show()).set_delay(1)
+	SoundPlayer.peace_music()
+	SoundPlayer.stop_sfx(SoundPlayer.SOUND.DOG)
+	SoundPlayer.stop_sfx(SoundPlayer.SOUND.WALK)
 	pass
