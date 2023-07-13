@@ -6,6 +6,7 @@ class_name Bullet extends ObjectEntity
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	self.get_node("Sprite2D").frame = randi() % 4
 	kill_timer.wait_time = kill_timer_wait_time
 	kill_timer.start()
 
